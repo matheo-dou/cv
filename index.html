@@ -335,6 +335,71 @@ document.addEventListener('DOMContentLoaded', () => {
           </ul>
           </section>
 
+<section id="certifications">
+    <h3>Diplômes et Certifications</h3>
+    <ul id="certifications-list">
+        </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cible l'élément <ul> par son ID
+            const listContainer = document.getElementById('certifications-list');
+            
+            // !!! REMPLACEZ CECI PAR L'URL DE PUBLICATION CSV DE VOTRE FEUILLE DE CERTIFICATIONS !!!
+            const csvUrl = 'VOTRE_URL_DE_PUBLICATION_WEB_DU_SHEET_DES_CERTIFICATIONS'; 
+
+            if (!listContainer) return; 
+
+            // Fonction pour afficher les messages d'erreur
+            function displayError(message) {
+                listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
+                    ⚠️ ERREUR : ${message}
+                    <br><small style="color: #666;">Vérifiez l'URL et les en-têtes (id, diplome, date).</small>
+                </li>`;
+            }
+
+            fetch(csvUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
+                    }
+                    return response.text();
+                })
+                .then(csvText => {
+                    // Utilise la fonction csvToJSON définie dans un autre script (assurez-vous qu'elle est disponible globalement)
+                    const data = csvToJSON(csvText); 
+
+                    if (data.length === 0) {
+                        return displayError("Aucun diplôme ou certification valide n'a été trouvé.");
+                    }
+                    
+                    // Tri par ID décroissant
+                    data.sort((a, b) => {
+                        return parseInt(b.id || 0) - parseInt(a.id || 0); 
+                    });
+
+                    // Affichage des données
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        
+                        // Utilisation des clés : diplome, date
+                        listItem.innerHTML = `
+                            <div class="item-title">
+                                ${item.diplome || 'Diplôme manquant'}
+                                <span class="item-date">${item.date || ''}</span>
+                            </div>
+                        `;
+                        
+                        listContainer.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    displayError(error.message || "Problème général de traitement ou de réseau.");
+                });
+        });
+    </script>
+</section>
+      
       <footer class="footer">
           <p>&copy; 2025 Mathéo Douillez.</p>
       </footer>
