@@ -137,50 +137,95 @@ document.addEventListener('DOMContentLoaded', () => {
           </ul>
 
         <script>
-          const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtJPv7rSa7Tb7tEamE9OPO4O0XH8ef8qtrfGlOgdJy1G5vJrOGCVfupGN_p9eTayHo_HR-CNZY0AO6/pub?output=csv';
+          document.addEventListener('DOMContentLoaded', () => {
+    const listContainer = document.getElementById('skills-list');
+    
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY/pub?output=csv'; 
 
-        async function loadSkills() {
-            const outputDiv = document.getElementById('skills-output');
+    // Fonction pour afficher les messages d'erreur directement sur la page
+    function displayError(message) {
+        // Changement : Affiche dans la liste mais s'assure que l'élément parent existe
+        if (listContainer) {
+            listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
+                ⚠️ ERREUR : ${message}
+                <br><small style="color: #666;">Vérifiez l'URL de publication, le format CSV et les noms des en-têtes (ID, Competence, Niveau).</small>
+            </li>`;
+        }
+    }
+
+    fetch(csvUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
+            }
+            return response.text();
+        })
+        .then(csvText => {
+            const data = csvToJSON(csvText);
+
+            if (data.length === 0) {
+                return displayError("Aucune donnée de compétence valide n'a été trouvée dans le fichier CSV.");
+            }
             
-            try {
-                const response = await fetch(DATA_URL);
-                const csvText = await response.text(); 
-                const rows = csvText.split('\n');
-                
-                let htmlContent = '<div class="skills-container">';
-                
-                // Commence à la ligne 1 pour ignorer les en-têtes (si existants)
-                for (let i = 1; i < rows.length; i++) {
-                    const row = rows[i];
-                    if (!row.trim()) continue;
+            // Tri par ID décroissant (si vous conservez une colonne ID)
+            data.sort((a, b) => {
+                // S'assure de trier numériquement même si l'ID est une chaîne
+                return parseInt(b.id || 0) - parseInt(a.id || 0); 
+            });
 
-                    // Division simple par la virgule.
-                    const data = row.split(','); 
-                    
-                    // Suppression des guillemets manuels et nettoyage des espaces
-                    const competence = data[0] ? data[0].replace(/"/g, '').trim() : ''; 
-                    const niveau = data[1] ? data[1].replace(/"/g, '').trim() : '';
-                    
-                    if (competence) {
-                        htmlContent += `
-                            <div class="skill-item">
-                                <span class="skill-name">${competence}</span>
-                                <span class="skill-level">${niveau}</span>
-                            </div>
-                        `;
-                    }
-                }
+            // Affichage des données triées
+            data.forEach(item => {
+                const listItem = document.createElement('li');
                 
-                htmlContent += '</div>';
-                outputDiv.innerHTML = htmlContent;
+                // 2. Changement : Utilisation des nouvelles clés de données (competence, niveau)
+                // Assurez-vous que vos en-têtes de colonnes dans la feuille sont "id", "competence", "niveau"
+                listItem.innerHTML = `
+                    <div class="skill-item">
+                        <span class="skill-name">${item.competence || 'Compétence manquante'}</span>
+                        <span class="skill-level">${item.niveau || ''}</span>
+                    </div>
+                `;
+                
+                listContainer.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            displayError(error.message || "Problème général de traitement ou de réseau.");
+        });
 
-            } catch (error) {
-                outputDiv.innerHTML = 'Erreur: Impossible de charger les données. Vérifiez l\'URL et la publication.';
+
+    // FONCTION DE CONVERSION CSV VERS JSON (Aucun changement majeur nécessaire ici)
+    function csvToJSON(csv) {
+        const lines = csv.split('\n');
+        if (lines.length < 2) return []; 
+        
+        const headers = lines[0].split(',');
+        const result = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            
+            const currentline = lines[i].split(',');
+            const obj = {};
+            
+            if (currentline.length < headers.length) continue; 
+            
+            for (let j = 0; j < headers.length; j++) {
+                let key = headers[j].trim().toLowerCase().replace(/['"]+/g, ''); // Utilisation de .toLowerCase() pour plus de robustesse
+                let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
+                obj[key] = value;
+            }
+            
+            // Ligne de vérification de l'ID : seulement si l'ID est un nombre > 0 (si vous gardez la colonne ID)
+            const idNumber = parseInt(obj.id);
+            if (isNaN(idNumber) || idNumber > 0) { // Si l'ID est ignoré (isNaN), ou si ID > 0
+                result.push(obj);
             }
         }
-
-        loadSkills(); 
-          
+        return result;
+    }
+});
+                    
           </script>
       </section>
 
