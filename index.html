@@ -35,29 +35,34 @@
       
           <section id="experiences">
           <h3>Expériences Professionnelles et Bénévolat</h3>
-          <ul id="experience-list">
-            
+          <ul id="experience-list"> 
           </ul>
 
               <script>
 document.addEventListener('DOMContentLoaded', () => {
     const listContainer = document.getElementById('experience-list');
     
-    fetch('experiences.json')
+    // REMPLACER cette URL par le lien CSV PUBLIÉ de Google Sheets
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/1P1ujomlzUh718awkY_5_MCJSw80TTHWDsqDNrTpiFJI/edit?usp=drivesdk'; 
+
+    fetch(csvUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erreur de chargement des données.');
+                throw new Error('Erreur de chargement des données depuis Google Sheets.');
             }
-            return response.json();
+            return response.text(); // On récupère le contenu en texte brut (CSV)
         })
-        .then(data => {
-            
+        .then(csvText => {
+            // Fonction pour convertir le CSV en un tableau d'objets (JSON)
+            const data = csvToJSON(csvText);
+
             // Tri par ID décroissant (le plus grand ID en premier = le plus récent en haut)
             data.sort((a, b) => {
-                return b.id - a.id;
+                // Assurez-vous que l'ID est un nombre avant de trier
+                return parseInt(b.id) - parseInt(a.id); 
             });
 
-            // Affichage des données triées (maintenant du plus récent au plus ancien)
+            // Affichage des données triées
             data.forEach(item => {
                 const listItem = document.createElement('li');
                 
@@ -72,10 +77,34 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             console.error('Erreur lors de l\'affichage des expériences:', error);
-            listContainer.innerHTML = '<li>Impossible de charger les données d\'expérience.</li>';
+            listContainer.innerHTML = '<li>Impossible de charger ou de traiter les données.</li>';
         });
+
+
+    // FONCTION DE CONVERSION CSV VERS JSON
+    function csvToJSON(csv) {
+        const lines = csv.split('\n');
+        const headers = lines[0].split(',');
+        const result = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            const obj = {};
+            const currentline = lines[i].split(',');
+            
+            for (let j = 0; j < headers.length; j++) {
+                // Nettoyage de base des espaces ou retours à la ligne
+                let key = headers[j].trim().replace(/['"]+/g, '');
+                let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
+                obj[key] = value;
+            }
+            result.push(obj);
+        }
+        return result;
+    }
 });
               </script>
+              
               
       </section>
     
