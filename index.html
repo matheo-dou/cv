@@ -42,7 +42,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const listContainer = document.getElementById('experience-list');
     
-    // REMPLACER par le lien CSV PUBLIÉ de Google Sheets
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY/pub?output=csv'; 
 
     // Fonction pour afficher les messages d'erreur directement sur la page
@@ -135,10 +134,54 @@ document.addEventListener('DOMContentLoaded', () => {
       <section id="competences">
           <h3>Compétences</h3>
           <ul class="skills-list">
-             <li>Débutant en Programmation WEB: HTML, CSS, PHP, JS</li>
-             <li>Débutant en Programmation Logiciel : CPP, Python</li>
-             <li>Gestion et Sécurisation de Réseau informatique :  expérience principale en simulation avec GNS3, Cisco</li>
           </ul>
+
+        <script>
+          const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtJPv7rSa7Tb7tEamE9OPO4O0XH8ef8qtrfGlOgdJy1G5vJrOGCVfupGN_p9eTayHo_HR-CNZY0AO6/pub?output=csv';
+
+        async function loadSkills() {
+            const outputDiv = document.getElementById('skills-output');
+            
+            try {
+                const response = await fetch(DATA_URL);
+                const csvText = await response.text(); 
+                const rows = csvText.split('\n');
+                
+                let htmlContent = '<div class="skills-container">';
+                
+                // Commence à la ligne 1 pour ignorer les en-têtes (si existants)
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (!row.trim()) continue;
+
+                    // Division simple par la virgule.
+                    const data = row.split(','); 
+                    
+                    // Suppression des guillemets manuels et nettoyage des espaces
+                    const competence = data[0] ? data[0].replace(/"/g, '').trim() : ''; 
+                    const niveau = data[1] ? data[1].replace(/"/g, '').trim() : '';
+                    
+                    if (competence) {
+                        htmlContent += `
+                            <div class="skill-item">
+                                <span class="skill-name">${competence}</span>
+                                <span class="skill-level">${niveau}</span>
+                            </div>
+                        `;
+                    }
+                }
+                
+                htmlContent += '</div>';
+                outputDiv.innerHTML = htmlContent;
+
+            } catch (error) {
+                outputDiv.innerHTML = 'Erreur: Impossible de charger les données. Vérifiez l\'URL et la publication.';
+            }
+        }
+
+        loadSkills(); 
+          
+          </script>
       </section>
 
       <section id="etudes">
