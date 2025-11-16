@@ -42,22 +42,37 @@
 document.addEventListener('DOMContentLoaded', () => {
     const listContainer = document.getElementById('experience-list');
     
-    // REMPLACER cette URL par le lien CSV PUBLIÉ de Google Sheets
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/1P1ujomlzUh718awkY_5_MCJSw80TTHWDsqDNrTpiFJI/edit?usp=drivesdk'; 
+    // REMPLACER par le lien CSV PUBLIÉ de Google Sheets
+    const csvUrl = 'VOTRE_LIEN_DE_PUBLICATION_GOOGLE_SHEETS'; 
+
+    // Fonction pour afficher les messages d'erreur directement sur la page
+    function displayError(message) {
+        listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
+            ⚠️ ERREUR : ${message}
+            <br><small style="color: #666;">Vérifiez que le lien Google Sheets est bien en mode PUBLICATION (.csv) et que le format des colonnes (id, poste, etc.) est exact.</small>
+        </li>`;
+    }
 
     fetch(csvUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erreur de chargement des données depuis Google Sheets.');
+                // Erreur de réseau ou 404/403 (URL non trouvée ou CORS bloqué)
+                throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
             }
             return response.text();
         })
         .then(csvText => {
             const data = csvToJSON(csvText);
 
+            if (data.length === 0) {
+                 // Si le CSV est lu mais qu'aucune ligne valide n'est trouvée (possible si headers seulement)
+                return displayError("Aucune donnée d'expérience valide n'a été trouvée dans le fichier CSV.");
+            }
+            
             // Tri par ID décroissant (le plus grand ID en premier)
             data.sort((a, b) => {
-                return parseInt(b.id) - parseInt(a.id); 
+                // S'assure de trier numériquement même si l'ID est une chaîne
+                return parseInt(b.id || 0) - parseInt(a.id || 0); 
             });
 
             // Affichage des données triées
@@ -65,22 +80,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 const listItem = document.createElement('li');
                 
                 listItem.innerHTML = `
-                    <div class="item-title">${item.poste}<span class="item-date">${item.date}</span></div>
-                    <div class="item-subtitle">${item.entreprise}</div>
-                    <p class="item-description">${item.description}</p>
+                    <div class="item-title">${item.poste || 'Titre manquant'}<span class="item-date">${item.date || ''}</span></div>
+                    <div class="item-subtitle">${item.entreprise || ''}</div>
+                    <p class="item-description">${item.description || ''}</p>
                 `;
                 
                 listContainer.appendChild(listItem);
             });
         })
         .catch(error => {
-            console.error('Erreur lors de l\'affichage des expériences:', error);
-            listContainer.innerHTML = '<li>Impossible de charger ou de traiter les données.</li>';
+            // Affiche l'erreur si elle a été lancée par 'fetch' ou par le 'throw'
+            displayError(error.message || "Problème général de traitement ou de réseau.");
         });
 
-    // FONCTION DE CONVERSION CSV VERS JSON AVEC VÉRIFICATION DE L'ID
+
+    // FONCTION DE CONVERSION CSV VERS JSON
     function csvToJSON(csv) {
         const lines = csv.split('\n');
+        // Vérifie qu'il y a au moins une ligne d'en-tête
+        if (lines.length < 2) return []; 
+        
         const headers = lines[0].split(',');
         const result = [];
         
@@ -90,14 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentline = lines[i].split(',');
             const obj = {};
             
+            // Assurez-vous que les colonnes correspondent
+            if (currentline.length < headers.length) continue; 
+            
             for (let j = 0; j < headers.length; j++) {
                 let key = headers[j].trim().replace(/['"]+/g, '');
                 let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
                 obj[key] = value;
             }
             
-            // LIGNE CLÉ : Vérifie que l'ID existe et n'est pas égal à '0'
-            if (obj.id && obj.id !== '0') {
+            // Ligne de vérification de l'ID : seulement si l'ID est un nombre > 0
+            const idNumber = parseInt(obj.id);
+            if (!isNaN(idNumber) && idNumber > 0) {
                 result.push(obj);
             }
         }
@@ -105,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
               </script>
-              
               
               
       </section>
