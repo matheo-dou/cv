@@ -76,12 +76,11 @@
           </ul>
 
               <script>
-document.addEventListener('DOMContentLoaded', () => {
+                  document.addEventListener('DOMContentLoaded', () => {
     const listContainer = document.getElementById('experience-list');
     
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY/pub?output=csv'; 
 
-    // Fonction pour afficher les messages d'erreur directement sur la page
     function displayError(message) {
         listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
             ⚠️ ERREUR : ${message}
@@ -92,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(csvUrl)
         .then(response => {
             if (!response.ok) {
-                // Erreur de réseau ou 404/403 (URL non trouvée ou CORS bloqué)
                 throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
             }
             return response.text();
@@ -101,39 +99,45 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = csvToJSON(csvText);
 
             if (data.length === 0) {
-                 // Si le CSV est lu mais qu'aucune ligne valide n'est trouvée (possible si headers seulement)
                 return displayError("Aucune donnée d'expérience valide n'a été trouvée dans le fichier CSV.");
             }
             
-            // Tri par ID décroissant (le plus grand ID en premier)
             data.sort((a, b) => {
-                // S'assure de trier numériquement même si l'ID est une chaîne
                 return parseInt(b.id || 0) - parseInt(a.id || 0); 
             });
 
-            // Affichage des données triées
             data.forEach(item => {
                 const listItem = document.createElement('li');
+                
+                let cleanDescription = item.description || '';
+                
+                cleanDescription = cleanDescription.replace(/<br\s*\/?>/gi, '</p><p>');
+
+                if (!cleanDescription.startsWith('<p>')) {
+                    cleanDescription = '<p>' + cleanDescription;
+                }
+                if (!cleanDescription.endsWith('</p>')) {
+                    cleanDescription = cleanDescription + '</p>';
+                }
                 
                 listItem.innerHTML = `
                     <div class="item-title">${item.poste || 'Titre manquant'}<span class="item-date">${item.date || ''}</span></div>
                     <div class="item-subtitle">${item.entreprise || ''}</div>
-                    <p class="item-description">${item.description || ''}</p>
+                    <div class="item-description-container">
+                        ${cleanDescription}
+                    </div>
                 `;
                 
                 listContainer.appendChild(listItem);
             });
         })
         .catch(error => {
-            // Affiche l'erreur si elle a été lancée par 'fetch' ou par le 'throw'
             displayError(error.message || "Problème général de traitement ou de réseau.");
         });
 
 
-    // FONCTION DE CONVERSION CSV VERS JSON
     function csvToJSON(csv) {
         const lines = csv.split('\n');
-        // Vérifie qu'il y a au moins une ligne d'en-tête
         if (lines.length < 2) return []; 
         
         const headers = lines[0].split(',');
@@ -145,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentline = lines[i].split(',');
             const obj = {};
             
-            // Assurez-vous que les colonnes correspondent
             if (currentline.length < headers.length) continue; 
             
             for (let j = 0; j < headers.length; j++) {
@@ -154,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 obj[key] = value;
             }
             
-            // Ligne de vérification de l'ID : seulement si l'ID est un nombre > 0
             const idNumber = parseInt(obj.id);
             if (!isNaN(idNumber) && idNumber > 0) {
                 result.push(obj);
@@ -163,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     }
 });
+                  
               </script>
               
               
