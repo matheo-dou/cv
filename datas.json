@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "poste": "Stage Observateur",
+    "entreprise": "Tech Réseaux",
+    "date": "Juil. 2025 (2 semaines)",
+    "description": "Découverte des architectures réseau et des bases de la configuration des pare-feux."
+  },
+  {
+    "id": 2,
+    "poste": "Alternant Cybersécurité",
+    "entreprise": "CyberCorp Solutions",
+    "date": "Sept. 2026 - Aujourd'hui",
+    "description": "Analyse des vulnérabilités, surveillance des systèmes d'information, et assistance aux audits internes."
+  },
+  {
+  }
+]
