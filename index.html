@@ -43,22 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const listContainer = document.getElementById('experience-list');
     
     // REMPLACER cette URL par le lien CSV PUBLIÉ de Google Sheets
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/1P1ujomlzUh718awkY_5_MCJSw80TTHWDsqDNrTpiFJI/edit?usp=drivesdk'; 
+    const csvUrl = 'VOTRE_LIEN_DE_PUBLICATION_GOOGLE_SHEETS'; 
 
     fetch(csvUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur de chargement des données depuis Google Sheets.');
             }
-            return response.text(); // On récupère le contenu en texte brut (CSV)
+            return response.text();
         })
         .then(csvText => {
-            // Fonction pour convertir le CSV en un tableau d'objets (JSON)
             const data = csvToJSON(csvText);
 
-            // Tri par ID décroissant (le plus grand ID en premier = le plus récent en haut)
+            // Tri par ID décroissant (le plus grand ID en premier)
             data.sort((a, b) => {
-                // Assurez-vous que l'ID est un nombre avant de trier
                 return parseInt(b.id) - parseInt(a.id); 
             });
 
@@ -81,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
-    // FONCTION DE CONVERSION CSV VERS JSON
+    // FONCTION DE CONVERSION CSV VERS JSON AVEC VÉRIFICATION DE L'ID
     function csvToJSON(csv) {
         const lines = csv.split('\n');
         const headers = lines[0].split(',');
@@ -89,21 +87,26 @@ document.addEventListener('DOMContentLoaded', () => {
         
         for (let i = 1; i < lines.length; i++) {
             if (!lines[i].trim()) continue;
-            const obj = {};
+            
             const currentline = lines[i].split(',');
+            const obj = {};
             
             for (let j = 0; j < headers.length; j++) {
-                // Nettoyage de base des espaces ou retours à la ligne
                 let key = headers[j].trim().replace(/['"]+/g, '');
                 let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
                 obj[key] = value;
             }
-            result.push(obj);
+            
+            // LIGNE CLÉ : Vérifie que l'ID existe et n'est pas égal à '0'
+            if (obj.id && obj.id !== '0') {
+                result.push(obj);
+            }
         }
         return result;
     }
 });
               </script>
+              
               
               
       </section>
