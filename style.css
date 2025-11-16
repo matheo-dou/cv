@@ -8,7 +8,7 @@
 }
 
 header {
-  .cv-navigation {
+  .nav {
     background-color: var(--secondary-bg-color);
     padding: 10px 0;
     margin-bottom: 20px;
@@ -16,7 +16,7 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.cv-navigation ul {
+.nav ul {
     display: flex;
     justify-content: space-around;
     list-style: none;
@@ -24,11 +24,11 @@ header {
     margin: 0;
 }
 
-.cv-navigation li {
+.nav li {
     margin: 0 10px;
 }
 
-.cv-navigation a {
+.nav a {
     color: var(--heading-color);
     text-decoration: none;
     font-weight: bold;
@@ -36,12 +36,12 @@ header {
     transition: color 0.3s, border-bottom 0.3s;
 }
 
-.cv-navigation a:hover {
+.nav a:hover {
     color: var(--accent-color);
     border-bottom: 2px solid var(--accent-color);
 }
 
-.cv-navigation a.active {
+.nav a.active {
     color: var(--accent-color);
     border-bottom: 3px solid var(--accent-color);
 }
@@ -56,7 +56,7 @@ body {
   color: var(--text-color);
 }
 
-.cv-container {
+.container {
   max-width: 900px;
   margin: 40px auto;
   background-color: #ffffff;
@@ -65,7 +65,7 @@ body {
   border-radius: 8px;
 }
 
-.cv-header {
+.header {
   background-color: var(--secondary-bg-color);
   padding: 25px 30px;
   margin: -30px -30px 30px -30px;
@@ -74,32 +74,32 @@ body {
   border-top-right-radius: 8px;
 }
 
-.cv-header h1 {
+.header h1 {
   color: var(--heading-color);
   margin-top: 0;
   margin-bottom: 5px;
   font-size: 2.5em;
 }
 
-.cv-header h2 {
+.header h2 {
   color: var(--accent-color);
   font-size: 1.2em;
   font-weight: normal;
   margin-bottom: 15px;
 }
 
-.cv-header p {
+.header p {
   margin: 0;
   font-size: 0.9em;
   color: var(--text-color);
 }
 
-.cv-header a {
+.header a {
   color: var(--accent-color);
   text-decoration: none;
 }
 
-.cv-header a:hover {
+.header a:hover {
   text-decoration: underline;
 }
 
@@ -171,7 +171,7 @@ a:hover {
   border: 1px solid var(--border-color);
 }
 
-.cv-footer {
+.footer {
   text-align: center;
   margin-top: 40px;
   padding-top: 20px;
@@ -181,17 +181,17 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .cv-container {
+  .container {
     margin: 20px;
     padding: 20px;
   }
 
-  .cv-header {
+  .header {
     padding: 20px;
     margin: -20px -20px 20px -20px;
   }
 
-  .cv-header h1 {
+  .header h1 {
     font-size: 2em;
   }
 
