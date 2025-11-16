@@ -229,36 +229,102 @@ document.addEventListener('DOMContentLoaded', () => {
       </section>
 
       <section id="etudes">
-          <h3>Études</h3>
-          <ul>
-              <li>
-                  <div class="item-title">Seconde Professionnelle TNE (Transition Numérique et Énergétique)
-                      <span class="item-date">2021 - 2022</span></div>
-                  <div class="item-subtitle">Lycée Ferry, Arras 62000</div>
-              </li>
-              <li>
-                  <div class="item-title">Première Professionnelle Système Numérique Option ARED (Audiovisuel, Réseaux informatique, Équipements domestique)
-                      <span class="item-date">2022 - 2023</span></div>
-                  <div class="item-subtitle">Lycée Ferry, Arras 62000</div>
-              </li>
-              <li>
-                  <div class="item-title">Terminale Professionnelle Système Numérique Option ARED (Audiovisuel, Réseaux informatique, Équipements domestique)
-                      <span class="item-date">2023 - 2024</span></div>
-                  <div class="item-subtitle">Lycée Ferry, Arras 62000</div>
-              </li>
-              <li>
-                  <div class="item-title">Première année de BTS CIEL (Cybersecurité, informatique et réseaux, électronique)
-                      <span class="item-date">2024 - 2025</span></div>
-                  <div class="item-subtitle">Lycée André Malraux, Béthune 62400</div>
-              </li>
-              <li>
-                  <div class="item-title">Seconde année de BTS CIEL (Cybersecurité, informatique et réseaux, électronique)
-                      <span class="item-date">2025 - 2026</span></div>
-                  <div class="item-subtitle">Lycée André Malraux, Béthune 62400</div>
-              </li>
-              </ul>
-          </section>
+    <h3>Études</h3>
+    <ul id="etudes-list">
+        </ul>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cible l'élément <ul> par son ID
+            const listContainer = document.getElementById('etudes-list');
+            
+            // !!! REMPLACEZ CECI PAR L'URL DE PUBLICATION CSV DE VOTRE FEUILLE D'ÉTUDES !!!
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7/pub?output=csv'; 
+
+            if (!listContainer) return; 
+
+            // Fonction pour afficher les messages d'erreur
+            function displayError(message) {
+                listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
+                    ⚠️ ERREUR : ${message}
+                    <br><small style="color: #666;">Vérifiez l'URL et les en-têtes (id, diplome, date, etablissement).</small>
+                </li>`;
+            }
+
+            fetch(csvUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
+                    }
+                    return response.text();
+                })
+                .then(csvText => {
+                    const data = csvToJSON(csvText);
+
+                    if (data.length === 0) {
+                        return displayError("Aucune donnée d'études valide n'a été trouvée.");
+                    }
+                    
+                    // Tri par ID décroissant (le plus récent en premier)
+                    data.sort((a, b) => {
+                        return parseInt(b.id || 0) - parseInt(a.id || 0); 
+                    });
+
+                    // Affichage des données
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        
+                        // Utilisation des clés : diplome, date, etablissement
+                        listItem.innerHTML = `
+                            <div class="item-title">
+                                ${item.diplome || 'Diplôme manquant'}
+                                <span class="item-date">${item.date || ''}</span>
+                            </div>
+                            <div class="item-subtitle">${item.etablissement || ''}</div>
+                        `;
+                        
+                        listContainer.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    displayError(error.message || "Problème général de traitement ou de réseau.");
+                });
+
+
+            // FONCTION DE CONVERSION CSV VERS JSON (Identique aux autres)
+            function csvToJSON(csv) {
+                const lines = csv.split('\n');
+                if (lines.length < 2) return []; 
+                
+                const headers = lines[0].split(',');
+                const result = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    
+                    const currentline = lines[i].split(',');
+                    const obj = {};
+                    
+                    if (currentline.length < headers.length) continue; 
+                    
+                    for (let j = 0; j < headers.length; j++) {
+                        let key = headers[j].trim().toLowerCase().replace(/['"]+/g, '');
+                        let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
+                        obj[key] = value;
+                    }
+                    
+                    const idNumber = parseInt(obj.id);
+                    if (isNaN(idNumber) || idNumber > 0) {
+                        result.push(obj);
+                    }
+                }
+                return result;
+            }
+        });
+    </script>
+      </section>
+      
+      
       <section id="certifications">
           <h3>Diplômes et Certifications</h3>
           <ul>
