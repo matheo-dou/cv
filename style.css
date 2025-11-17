@@ -1,5 +1,5 @@
 :root {
-  --primary-bg-color: #d6dcff;
+  --primary-bg-color: #B0CFC3;
   --secondary-bg-color: #ffffff;
   --tertiary-bg-color: #e6f5e6;
   --text-color: #343a40;
@@ -14,7 +14,7 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: var(--primary-bg-color);
+  background-color: var(--primary-bg-color) !important;
   color: var(--text-color);
 }
 
