@@ -1,0 +1,61 @@
+name: Déploiement Statique
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout du code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Préparation des dossiers
+        id: setup
+        run: |
+          # Crée le dossier saves s'il n'existe pas
+          mkdir -p saves
+
+          # Définit le nom du dossier de sauvegarde
+          SAVE_DIR="saves/backup-$(date +%Y%m%d-%H%M%S)"
+          echo "SAVE_DIR=$SAVE_DIR" >> $GITHUB_OUTPUT
+
+      - name: 📤 Sauvegarde des fichiers actuels à la racine
+        run: |
+          SAVE_DIR="${{ steps.setup.outputs.SAVE_DIR }}"
+          
+          # Crée le dossier de sauvegarde horodaté
+          mkdir -p "$SAVE_DIR"
+          
+          # Déplace les fichiers de la racine (sauf .git, .github et saves)
+          # vers le dossier de sauvegarde
+          find . -maxdepth 1 \
+            -not -path '*/.git*' \
+            -not -path '*/.github*' \
+            -not -path '*/saves*' \
+            -not -path '*/.' \
+            -not -path '*/..' \
+            -exec mv {} "$SAVE_DIR" \;
+            
+      - name: 📥 Déplacement des fichiers de dev vers la racine
+        run: |
+          # Copie tout le contenu du dossier 'dev' vers la racine du dépôt
+          cp -r dev/* .
+
+      - name: 💾 Commit et Push des changements
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Ajoute tous les changements (sauvegardes, nouveaux fichiers)
+          git add .
+          
+          if git diff --staged --quiet; then
+            echo "Pas de changements à commiter."
+          else
+            git commit -m "🤖 Auto-déploiement: Mise à jour depuis 'dev' et sauvegarde"
+            git push
+          fi
+          
