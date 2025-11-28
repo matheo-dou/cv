@@ -12,33 +12,34 @@ jobs:
       - name: ⬇️ Checkout du code
         uses: actions/checkout@v4
 
-      - name: ⚙️ Préparation des dossiers
+      - name: ⚙️ Préparation des dossiers et nom de l'archive
         id: setup
         run: |
           # Crée le dossier saves s'il n'existe pas
           mkdir -p saves
 
-          # Définit le nom du dossier de sauvegarde
-          SAVE_DIR="saves/backup-$(date +%Y%m%d-%H%M%S)"
-          echo "SAVE_DIR=$SAVE_DIR" >> $GITHUB_OUTPUT
+          # Définit le nom de l'archive de sauvegarde
+          SAVE_ARCHIVE="saves/backup-$(date +%Y%m%d-%H%M%S).tar.gz"
+          echo "SAVE_ARCHIVE=$SAVE_ARCHIVE" >> $GITHUB_OUTPUT
 
-      - name: 📤 Sauvegarde des fichiers actuels à la racine
+      - name: 📦 Création et compression de la sauvegarde
         run: |
-          SAVE_DIR="${{ steps.setup.outputs.SAVE_DIR }}"
+          SAVE_ARCHIVE="${{ steps.setup.outputs.SAVE_ARCHIVE }}"
           
-          # Crée le dossier de sauvegarde horodaté
-          mkdir -p "$SAVE_DIR"
-          
-          # Déplace les fichiers de la racine (sauf .git, .github et saves)
-          # vers le dossier de sauvegarde
-          find . -maxdepth 1 \
-            -not -path '*/.git*' \
-            -not -path '*/.github*' \
-            -not -path '*/saves*' \
-            -not -path '*/dev*' \
-            -not -path '*/.' \
-            -not -path '*/..' \
-            -exec mv {} "$SAVE_DIR" \;
+          # Crée une archive tar.gz de tous les fichiers à la racine, 
+          # EXCLUT les dossiers système et de travail.
+          tar -czvf "$SAVE_ARCHIVE" \
+            --exclude .git \
+            --exclude .github \
+            --exclude saves \
+            --exclude dev \
+            --exclude "$(basename "$SAVE_ARCHIVE")" \
+            .
+            
+      - name: 🗑️ Nettoyage de la racine après compression
+        run: |
+          # Supprime tous les fichiers à la racine (sauf les dossiers de travail)
+          ls -A | grep -v -E "^\.(git|github)$|^saves$|^dev$" | xargs rm -rf
             
       - name: 📥 Déplacement des fichiers de dev vers la racine
         run: |
