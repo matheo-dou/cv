@@ -30,16 +30,12 @@ jobs:
 
       - name: 🗑️ Nettoyer la racine actuelle
         run: |
-          # Supprime tous les fichiers à la racine pour faire place à la restauration.
-          # EXCLUT : .git, .github, saves/, dev/ et les chemins '.' et '..'
-          find . -maxdepth 1 \
-            -not -path '*/.git*' \
-            -not -path '*/.github*' \
-            -not -path '*/saves*' \
-            -not -path '*/dev*' \
-            -not -path '*/.' \
-            -not -path '*/..' \
-            -delete
+          # Liste tous les fichiers et dossiers à la racine (sauf . et ..)
+          # et les filtre pour exclure les dossiers de travail.
+          
+          # La commande suivante supprime tous les fichiers/dossiers de la racine
+          # EXCEPTE les éléments listés.
+          ls -A | grep -v -E "^\.(git|github)$|^saves$|^dev$" | xargs rm -rf
 
       - name: 📥 Restaurer les fichiers
         run: |
