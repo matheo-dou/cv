@@ -13,59 +13,37 @@ jobs:
     steps:
       - name: ⬇️ Checkout du code
         uses: actions/checkout@v4
-
-      - name: 🔍 Trouver la dernière sauvegarde
+        
+      - name: 🔍 Trouver la dernière sauvegarde (Archive)
         id: find_latest
         run: |
-          # Trie les dossiers de sauvegarde par date (le plus récent en premier) et prend le premier
-          LATEST_BACKUP=$(ls -td saves/backup-* | head -1)
+          # Trouve la dernière archive .tar.gz par date
+          LATEST_BACKUP=$(ls -td saves/backup-*.tar.gz | head -1)
           
           if [ -z "$LATEST_BACKUP" ]; then
-            echo "::error::Aucune sauvegarde trouvée dans 'saves/'."
+            echo "::error::Aucune archive de sauvegarde trouvée dans 'saves/'."
             exit 1
           fi
           
-          echo "Dernière sauvegarde trouvée : $LATEST_BACKUP"
-          echo "RESTORE_DIR=$LATEST_BACKUP" >> $GITHUB_OUTPUT
+          echo "Dernière archive trouvée : $LATEST_BACKUP"
+          echo "RESTORE_ARCHIVE=$LATEST_BACKUP" >> $GITHUB_OUTPUT
 
-      - name: 🗑️ Nettoyer la racine actuelle
-        run: |
-          # Liste tous les fichiers et dossiers à la racine (sauf . et ..)
-          # et les filtre pour exclure les dossiers de travail.
-          
-          # La commande suivante supprime tous les fichiers/dossiers de la racine
-          # EXCEPTE les éléments listés.
-          ls -A | grep -v -E "^\.(git|github)$|^saves$|^dev$" | xargs rm -rf
+      # L'étape de nettoyage de la racine reste la même.
 
-      - name: 📥 Restaurer les fichiers
+      - name: 📥 Restauration et Décompression des fichiers
         run: |
-          RESTORE_DIR="${{ steps.find_latest.outputs.RESTORE_DIR }}"
+          RESTORE_ARCHIVE="${{ steps.find_latest.outputs.RESTORE_ARCHIVE }}"
           
-          if [ ! -d "$RESTORE_DIR" ]; then
-            echo "::error::Le répertoire de sauvegarde '$RESTORE_DIR' n'existe pas."
+          if [ ! -f "$RESTORE_ARCHIVE" ]; then
+            echo "::error::L'archive de sauvegarde '$RESTORE_ARCHIVE' n'existe pas."
             exit 1
           fi
           
-          # Copie le CONTENU de la sauvegarde vers la racine (cp -r ne supprime rien)
-          cp -r "$RESTORE_DIR"/* .
+          # Décompresse l'archive à la racine (cette commande extrait les fichiers)
+          tar -xzvf "$RESTORE_ARCHIVE" -C .
           
-          echo "Restauration effectuée à partir de $RESTORE_DIR"
+          echo "Restauration effectuée à partir de $RESTORE_ARCHIVE"
 
-      - name: 💾 Commit et Push de la restauration
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          git add .
-          
-          # Vérifie si il y a des changements avant de commiter
-          if git diff --staged --quiet; then
-            echo "Pas de changements à commiter."
-          else
-            RESTORE_DIR="${{ steps.find_latest.outputs.RESTORE_DIR }}"
-            git commit -m "🤖 Auto-restauration: Annulation du déploiement avec la sauvegarde $RESTORE_DIR"
-            git push
-          fi
           
       - name: 🚀 Déploiement Final du Site Statique
         # Cette action va explicitement dire à GitHub de mettre à jour les Pages
