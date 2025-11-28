@@ -62,13 +62,3 @@ jobs:
             git push
           fi
           
-      - name: 🚀 Déploiement Final du Site Statique
-        # Cette action va explicitement dire à GitHub de mettre à jour les Pages
-        uses: actions/deploy-pages@v4 
-        # C'est l'action standard et recommandée pour le déploiement de Pages.
-        
-        # Le 'needs: commit' assure que l'action ne se lance que si la restauration a eu lieu.
-          # Note: Nous ne spécifions pas de chemin 'source' ou 'artifact' car l'action 
-          # est configurée pour prendre le contenu de la branche 'main' (ou master) 
-          # si l'option 'source' est définie sur 'main' dans les paramètres de Pages.
-          # L'action utilise le jeton de Pages pour déclencher la mise à jour
