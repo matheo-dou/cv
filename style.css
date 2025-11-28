@@ -10,7 +10,7 @@
 }
 
 body {
-  text-align: center;
+  text-align: center !important;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   margin: 0;
