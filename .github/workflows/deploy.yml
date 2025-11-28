@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     steps:
       - name: ⬇️ Checkout du code
         uses: actions/checkout@v4
@@ -67,9 +68,7 @@ jobs:
         # C'est l'action standard et recommandée pour le déploiement de Pages.
         
         # Le 'needs: commit' assure que l'action ne se lance que si la restauration a eu lieu.
-        with:
           # Note: Nous ne spécifions pas de chemin 'source' ou 'artifact' car l'action 
           # est configurée pour prendre le contenu de la branche 'main' (ou master) 
           # si l'option 'source' est définie sur 'main' dans les paramètres de Pages.
-          # L'action utilise le jeton de Pages pour déclencher la mise à jour.
-          pass-metadata: true 
+          # L'action utilise le jeton de Pages pour déclencher la mise à jour
