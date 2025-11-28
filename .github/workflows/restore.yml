@@ -1,0 +1,73 @@
+name: ↩️ Restauration à partir de la dernière sauvegarde
+
+on:
+  workflow_dispatch:
+    # Permet de déclencher le workflow manuellement
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    permissions: # <-- CORRECTION DE LA PERMISSION
+      contents: write # Accorde la permission d'écrire au jeton GITHUB_TOKEN
+      
+    steps:
+      - name: ⬇️ Checkout du code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Trouver la dernière sauvegarde
+        id: find_latest
+        run: |
+          # Trie les dossiers de sauvegarde par date (le plus récent en premier) et prend le premier
+          LATEST_BACKUP=$(ls -td saves/backup-* | head -1)
+          
+          if [ -z "$LATEST_BACKUP" ]; then
+            echo "::error::Aucune sauvegarde trouvée dans 'saves/'."
+            exit 1
+          fi
+          
+          echo "Dernière sauvegarde trouvée : $LATEST_BACKUP"
+          echo "RESTORE_DIR=$LATEST_BACKUP" >> $GITHUB_OUTPUT
+
+      - name: 🗑️ Nettoyer la racine actuelle
+        run: |
+          # Supprime tous les fichiers à la racine pour faire place à la restauration.
+          # EXCLUT : .git, .github, saves/, dev/ et les chemins '.' et '..'
+          find . -maxdepth 1 \
+            -not -path '*/.git*' \
+            -not -path '*/.github*' \
+            -not -path '*/saves*' \
+            -not -path '*/dev*' \
+            -not -path '*/.' \
+            -not -path '*/..' \
+            -delete
+
+      - name: 📥 Restaurer les fichiers
+        run: |
+          RESTORE_DIR="${{ steps.find_latest.outputs.RESTORE_DIR }}"
+          
+          if [ ! -d "$RESTORE_DIR" ]; then
+            echo "::error::Le répertoire de sauvegarde '$RESTORE_DIR' n'existe pas."
+            exit 1
+          fi
+          
+          # Copie le CONTENU de la sauvegarde vers la racine (cp -r ne supprime rien)
+          cp -r "$RESTORE_DIR"/* .
+          
+          echo "Restauration effectuée à partir de $RESTORE_DIR"
+
+      - name: 💾 Commit et Push de la restauration
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          git add .
+          
+          # Vérifie si il y a des changements avant de commiter
+          if git diff --staged --quiet; then
+            echo "Pas de changements à commiter."
+          else
+            RESTORE_DIR="${{ steps.find_latest.outputs.RESTORE_DIR }}"
+            git commit -m "🤖 Auto-restauration: Annulation du déploiement avec la sauvegarde $RESTORE_DIR"
+            git push
+          fi
+          
