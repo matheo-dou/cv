@@ -33,6 +33,7 @@ jobs:
             -not -path '*/.git*' \
             -not -path '*/.github*' \
             -not -path '*/saves*' \
+            -not -path '*/dev*' \
             -not -path '*/.' \
             -not -path '*/..' \
             -exec mv {} "$SAVE_DIR" \;
