@@ -309,7 +309,7 @@ a.button-visible {
 
 /* --- MEDIA QUERY pour l'Affichage Mobile --- */
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
     
     /* Masquer la version PC sur mobile */
     .cv-page-desktop {
