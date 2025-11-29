@@ -302,7 +302,7 @@ a:hover {
 /* Règle générale pour le bouton (désactivé sur PC) */
 a.button-cache,
 a.button-visible {
-    display: none !important;
+    display: none;
     /* Les styles mobiles seront appliqués ci-dessous */
 }
 
