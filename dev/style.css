@@ -273,7 +273,7 @@ a:hover {
 .desktop-etudes {
     position: absolute;
     top: 300px;    /* A AJUSTER */
-    left: 100px;   /* A AJUSTER */
+    left: 360px;   /* A AJUSTER */
     width: 600px;
     z-index: 10;
     text-align: left;
