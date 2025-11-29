@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data = data.filter(item => {
                     // Vérifie que l'objet a une propriété 'competence' ou 'nom' non vide,
                     // et que l'ID n'est pas 0 (pour ignorer les lignes non utilisées)
-                    const competenceName = item.competence || item.nom; // Utilise 'competence' ou 'nom'
+                    const competenceName = item.competence;
                     const idNumber = parseInt(item.id);
                     
                     // Garde l'élément si (le nom de la compétence existe ET l'ID n'est pas 0)
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     listItem.classList.add('skill-item');
                     listItem.innerHTML = `
                         <div class="skill-item-content">
-                            <span class="item-title">${item.competence || item.nom || 'Compétence manquante'}</span>
+                            <span class="item-title">${item.competence || 'Compétence manquante'}</span>
                             <span class="item-level">${item.niveau || ''}</span>
                         </div>
                     `;
