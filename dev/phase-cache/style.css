@@ -1,0 +1,239 @@
+:root {
+  --primary-bg-color: #EDFFE8;
+  --secondary-bg-color: #C5DED4;
+  --tertiary-bg-color: #e6f5e6;
+  --text-color: #343a40;
+  --heading-color: #1b5e20;
+  --accent-color: #ffc107;
+  --soft-accent-color: #4db6ac;
+  --border-color: #dee2e6;
+}
+
+body {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-bg-color) !important;
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: var(--secondary-bg-color) !important;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.header {
+  background-color: var(--tertiary-bg-color) !important;
+  padding: 25px 30px;
+  margin: -30px -30px 20px -30px;
+  text-align: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.header h1 {
+  color: var(--heading-color) !important;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 2.5em;
+}
+
+.header h2 {
+  color: var(--accent-color) !important;
+  font-size: 1.2em;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.header p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-color);
+}
+
+.header a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.header a:hover {
+  text-decoration: underline;
+}
+
+.nav {
+    background-color: var(--secondary-bg-color) !important;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    list-style: none;
+    margin: 0;
+    flex-wrap: wrap; 
+}
+
+.nav li {
+    margin: 2px 3px;
+}
+
+.nav a {
+    color: var(--heading-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav a:hover {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.nav a.active {
+    color: var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
+}
+
+h3 {
+  color: var(--heading-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 15px;
+}
+
+.item-title {
+  font-weight: bold;
+  color: var(--heading-color);
+  font-size: 1.1em;
+}
+
+.item-subtitle {
+  color: var(--accent-color);
+  font-size: 0.95em;
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+.item-date {
+  color: #777;
+  font-size: 0.85em;
+  float: right;
+}
+
+.item-description {
+  color: var(--text-color);
+  margin-top: 5px;
+  white-space: pre-wrap;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.skills-list li {
+  background-color: var(--soft-accent-color) !important;
+  color: #ffffff;
+  padding: 5px 12px;
+  margin: 0 10px 10px 0;
+  border-radius: 5px;
+  font-size: 0.9em;
+  border: 1px solid var(--soft-accent-color);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.8em;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+
+  .header {
+    padding: 20px;
+    margin: -20px -20px 20px -20px;
+  }
+
+  .header h1 {
+    font-size: 2em;
+  }
+
+  .item-date {
+    float: none;
+    display: block;
+    margin-top: 5px;
+  }
+
+  .nav ul {
+      flex-direction: column; 
+      align-items: center;
+      padding-left: 0;
+  }
+
+  .nav li {
+      margin: 5px 0; 
+      width: 100%; 
+      text-align: center;
+  }
+
+  .nav a {
+      display: block; 
+      padding: 8px 10px;
+  }
+}
+
+@media (max-width: 600px) {
+    .container {
+      margin: 20px 5px;
+    }
+}
+
+a.button {
+    padding: 1px 6px;
+    border: 1px outset buttonborder;
+    border-radius: 3px;
+    color: buttontext;
+    background-color: buttonface;
+    text-decoration: none;
+}
