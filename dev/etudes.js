@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ⚠️ REMPLACER par l'URL de votre Google Sheet (études/formations) publié en CSV
     const csvUrlEtudes = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7/pub?output=csv'; 
 
     /**
@@ -48,9 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Assurez-vous que votre CSV contient des colonnes comme 'titre', 'etablissement', 'date'
                     listItem.classList.add('etudes-item');
                     listItem.innerHTML = `
-                        <div class="item-title">${item.titre || 'Titre manquant'}</div>
-                        <div class="item-subtitle">${item.etablissement || ''} 
-                            <span class="item-date">${item.date || ''}</span>
+                        <div class="item-title">${item.diplome| 'Titre manquant'}</div>
+                        <div class="item-subtitle">${item.date || ''} 
+                            <span class="item-date">${item.etablissement || ''}</span>
                         </div>
                         <p>${item.description || ''}</p>
                     `;
