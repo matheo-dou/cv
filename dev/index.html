@@ -10,22 +10,20 @@
 </head>
 <body>
 
-      <div class="cv-container">
-    <img src="images/Fond CV iceberg PC V1-2025.png" alt="Mon CV Iceberg - PC" class="iceberg-desktop">
-
-    <div class="iceberg-mobile-container">
-        <div class="iceberg-mobile-top">
-            </div>
-
-        <a href="phase-cache" class="button">Voir la phase Caché de l'iceberg</a>
-        <div class="iceberg-mobile-bottom hidden">
-            </div>
+    <div class="cv-page-desktop">
+        <p>Test - cv-page-desktop</p>
+        <img src="images/Fond CV iceberg PC V1-2025.png" alt="Mon CV Iceberg - PC" class="iceberg-desktop">
     </div>
 
-    <div class="cv-content">
-        </div>
+<div class="cv-page-mobile-visible">
+    <p>Test - cv-page-mobile-visible</p>
+    <a href="phase-cache" class="button">Voir la phase Caché de l'iceberg</a>
 </div>
 
+<div class="cv-page-mobile-cachee" id="section-cachee">
+    <p>Test - cv-page-mobile-cachee</p>
+</div>
+    
         
   <script>
     // FONCTION GLOBALE DE CONVERSION CSV VERS JSON 
@@ -104,7 +102,7 @@
             ⚠️ ERREUR : ${message}
             <br><small style="color: #666;">Vérifiez que le lien Google Sheets est bien en mode PUBLICATION (.csv) et que le format des colonnes (id, poste, etc.) est exact.</small>
         </li>`;
-    }
+     }
 
     fetch(csvUrl)
         .then(response => {
