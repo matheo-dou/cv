@@ -34,7 +34,20 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(csvText => {
                 // Utilisation de la fonction globale de csv-utils.js
-                const data = csvToJSON(csvText); 
+                let data = csvToJSON(csvText); 
+
+                // --- NOUVEAU: Filtrage des lignes vides/invalides ---
+                data = data.filter(item => {
+                    // Vérifie que l'objet a une propriété 'competence' ou 'nom' non vide,
+                    // et que l'ID n'est pas 0 (pour ignorer les lignes non utilisées)
+                    const competenceName = item.competence || item.nom; // Utilise 'competence' ou 'nom'
+                    const idNumber = parseInt(item.id);
+                    
+                    // Garde l'élément si (le nom de la compétence existe ET l'ID n'est pas 0)
+                    return (competenceName && competenceName.trim() !== '') && (isNaN(idNumber) || idNumber !== 0);
+                });
+                // --- FIN du Filtrage ---
+
 
                 if (data.length === 0) {
                     return displayError("Aucune donnée de compétence valide n'a été trouvée.");
@@ -50,11 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const listItem = document.createElement('li');
                     
                     // Assurez-vous que les clés 'competence' et 'niveau' sont bien dans votre CSV
-                    // Note : J'ai ajouté 'competence' car votre code original n'utilisait que 'niveau'
                     listItem.classList.add('skill-item');
                     listItem.innerHTML = `
                         <div class="skill-item-content">
-                            <span class="item-title">${item.competence || 'Compétence manquante'}</span>
+                            <span class="item-title">${item.competence || item.nom || 'Compétence manquante'}</span>
                             <span class="item-level">${item.niveau || ''}</span>
                         </div>
                     `;
