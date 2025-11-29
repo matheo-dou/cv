@@ -338,14 +338,41 @@ a.button-visible {
         margin: 0;
         padding: 0;
     }
+     
+    .iceberg-mobile-visible {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    z-index: 1;
     
-    .iceberg-mobile-img {
-        width: 100%;
-        height: auto;
-        display: block;
-        margin-bottom: 20px;
+    background-image: url('images/NOM-IMAGE.png'); /* CHANGER NOM IMAGE iceberg mobile visible !!!*/
+    background-repeat: no-repeat;
+    
+    /* CRUCIAL pour l'adaptation sans déformation : */
+    background-size: cover; 
+    background-position: center center;
+    background-attachment: fixed; /* L'image reste fixe lors du scroll */
     }
-
+  
+    .iceberg-mobile-cache {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    z-index: 1;
+    
+    background-image: url('images/NOM-IMAGE.png'); /* CHANGER NOM IMAGE iceberg mobile cachée !!!*/
+    background-repeat: no-repeat;
+    
+    /* CRUCIAL pour l'adaptation sans déformation : */
+    background-size: cover; 
+    background-position: center center;
+    background-attachment: fixed; /* L'image reste fixe lors du scroll */
+    }
+  
     /* Conteneurs de contenu Mobile */
     .mobile-info-contact,
     .mobile-experiences,
