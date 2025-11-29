@@ -294,8 +294,7 @@ a:hover {
 /* --- Gestion Mobile (Media Queries) --- */
 
 /* Masquer les sections mobiles par défaut (sur PC) */
-.cv-page-mobile-visible,
-.cv-page-mobile-cachee {
+.cv-page-mobile {
     display: none; 
 }
 
