@@ -206,10 +206,22 @@ a:hover {
     overflow: hidden;
 }
 
-.iceberg-desktop-img {
-    width: 100%; 
-    height: auto;
-    display: block;
+.iceberg-desktop-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    z-index: 1;
+    
+    background-image: url('images/Fond CV iceberg PC V1-2025.png'); 
+    background-repeat: no-repeat;
+    
+    /* CRUCIAL pour l'adaptation sans déformation : */
+    background-size: cover; 
+    
+    background-position: center center;
+    background-attachment: fixed; /* L'image reste fixe lors du scroll */
 }
 
 /* Style général des contenus superposés sur l'Iceberg PC */
