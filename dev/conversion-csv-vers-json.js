@@ -1,6 +1,3 @@
-<script>
-    // FONCTION GLOBALE DE CONVERSION CSV VERS JSON 
-      //
     function csvToJSON(csv) {
         const lines = csv.split('\n');
         // Vérifie qu'il y a au moins une ligne d'en-tête
@@ -32,5 +29,3 @@
         }
         return result;
     }
-    // Note : Cette fonction DOIT être chargée avant tous les scripts de section qui l'appellent.
-  </script>
