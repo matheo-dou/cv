@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ⚠️ REMPLACER par l'URL de votre Google Sheet (études/formations) publié en CSV
-    const csvUrlEtudes = 'URL_VOTRE_GOOGLE_SHEET_ETUDES?output=csv'; 
+    const csvUrlEtudes = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7/pub?output=csv'; 
 
     /**
      * Charge et affiche les données d'études dans le conteneur spécifié.
