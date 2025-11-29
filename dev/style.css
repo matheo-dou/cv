@@ -296,7 +296,7 @@ a:hover {
 /* Masquer les sections mobiles par défaut (sur PC) */
 .cv-page-mobile-visible,
 .cv-page-mobile-cachee {
-    display: none !important; 
+    display: none; 
 }
 
 /* Règle générale pour le bouton (désactivé sur PC) */
