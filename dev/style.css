@@ -9,6 +9,8 @@
   --border-color: #dee2e6;
 }
 
+/* --- Styles de Base et Typographie --- */
+
 body {
   text-align: center;
   font-family: 'Arial', sans-serif;
@@ -143,10 +145,12 @@ ul li {
   float: right;
 }
 
-.item-description {
-  color: var(--text-color);
-  margin-top: 5px;
-  white-space: pre-wrap;
+.item-description-container p {
+    color: var(--text-color);
+    margin-top: 5px;
+    white-space: pre-wrap;
+    /* Ajustement pour l'injection JS des paragraphes */
+    margin-bottom: 5px; 
 }
 
 a {
@@ -184,30 +188,190 @@ a:hover {
   color: #777;
 }
 
-/* Par défaut (PC) */
+/* --- Règles Spécifiques au Design Iceberg (Desktop) --- */
+
+.cv-page-desktop {
+    display: block; 
+}
+
+.cv-container-desktop {
+    /* CRUCIAL: Définit la zone de référence pour le positionnement absolu */
+    position: relative;
+    
+    /* Doit correspondre à la largeur de votre image (1920px) */
+    width: 1920px; 
+    margin: 20px auto; 
+    overflow: hidden; 
+}
+
+.iceberg-desktop-img {
+    width: 100%; 
+    height: auto;
+    display: block;
+}
+
+/* Style général des contenus superposés sur l'Iceberg PC */
+.cv-container-desktop h3,
+.cv-container-desktop p,
+.cv-container-desktop li,
+.cv-container-desktop .item-title,
+.cv-container-desktop .item-subtitle {
+    /* Rendre le texte blanc ou clair sur l'image foncée */
+    color: white !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+    margin: 0; 
+    padding: 0;
+}
+
+.cv-container-desktop h3 {
+    border-bottom: 2px solid var(--accent-color) !important;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.desktop-experiences ul,
+.desktop-competences ul,
+.desktop-etudes ul,
+.desktop-certifications ul {
+    list-style: none;
+    padding: 0;
+    /* Optionnel: réduire l'opacité des listes pour l'effet de profondeur */
+    /* opacity: 0.9; */ 
+}
+
+/* --- Positionnement Absolu des Blocs PC (À AJUSTER) --- */
+
+/* 1. Coordonnées (Sur la partie visible) */
+.desktop-info-contact {
+    position: absolute;
+    top: 150px;    /* A AJUSTER */
+    left: 600px;   /* A AJUSTER */
+    width: 400px;  
+    z-index: 10;   
+    text-align: left;
+}
+
+/* 2. Expériences (Partie cachée - 1) */
+.desktop-experiences {
+    position: absolute;
+    top: 650px;    /* A AJUSTER */
+    left: 100px;   /* A AJUSTER */
+    width: 800px;
+    z-index: 10;
+    text-align: left;
+}
+
+/* 3. Compétences (Partie cachée - 2) */
+.desktop-competences {
+    position: absolute;
+    top: 700px;    /* A AJUSTER */
+    right: 50px;   /* A AJUSTER */
+    width: 400px;
+    z-index: 10;
+    text-align: left;
+}
+
+/* 4. Études (Partie cachée - 3) */
+.desktop-etudes {
+    position: absolute;
+    top: 300px;    /* A AJUSTER */
+    left: 100px;   /* A AJUSTER */
+    width: 600px;
+    z-index: 10;
+    text-align: left;
+}
+
+/* 5. Certifications (Partie cachée - 4) */
+.desktop-certifications {
+    position: absolute;
+    top: 300px;    /* A AJUSTER */
+    right: 100px;  /* A AJUSTER */
+    width: 400px;
+    z-index: 10;
+    text-align: left;
+}
+
+/* --- Gestion Mobile (Media Queries) --- */
+
+/* Masquer les sections mobiles par défaut (sur PC) */
 .cv-page-mobile-visible,
 .cv-page-mobile-cachee {
-    display: none; /* Masquer les sections mobiles sur PC */
+    display: none; 
 }
 
-/* --- MEDIA QUERY (Mobile) --- */
+/* Règle générale pour le bouton (désactivé sur PC) */
+a.button-cache,
+a.button-visible {
+    padding: 1px 6px;
+    text-decoration: none;
+    /* Les styles mobiles seront appliqués ci-dessous */
+}
+
+
+/* --- MEDIA QUERY pour l'Affichage Mobile (Écrans <= 768px) --- */
+
 @media (max-width: 768px) {
+    
+    /* Masquer la version PC sur mobile */
     .cv-page-desktop {
-        display: none; /* Masquer la section PC sur mobile */
+        display: none !important;
     }
 
+    /* Afficher les sections mobiles (s'applique sur index.html et cv_cache.html) */
     .cv-page-mobile-visible,
     .cv-page-mobile-cachee {
-        display: block; /* Afficher les sections mobiles */
+        display: flex; 
+        flex-direction: column;
+        align-items: center; 
+        width: 100%;
+        min-height: 100vh; 
+        margin: 0;
+        padding: 0;
     }
-}
+    
+    .iceberg-mobile-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-bottom: 20px;
+    }
 
+    /* Conteneurs de contenu Mobile */
+    .mobile-info-contact,
+    .mobile-experiences,
+    .mobile-competences,
+    .mobile-etudes,
+    .mobile-certifications {
+        width: 90%; 
+        max-width: 600px;
+        margin: 10px 0;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        /* Rétablir les couleurs par défaut pour la lisibilité sur fond blanc */
+        color: var(--text-color) !important;
+    }
 
-a.button {
-    padding: 1px 6px;
-    border: 1px outset buttonborder;
-    border-radius: 3px;
-    color: buttontext;
-    background-color: buttonface;
-    text-decoration: none;
+    /* Styles pour le bouton de navigation mobile */
+    a.button-cache,
+    a.button-visible {
+        background-color: var(--accent-color); 
+        color: var(--text-color);
+        padding: 12px 25px;
+        margin: 20px 0 40px 0;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    a.button-cache:hover,
+    a.button-visible:hover {
+        background-color: var(--soft-accent-color);
+        color: white;
+        text-decoration: none;
+    }
 }
