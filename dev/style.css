@@ -195,8 +195,6 @@ a:hover {
 }
 
 .cv-container-desktop {
-    /* CRUCIAL: Définit la zone de référence pour le positionnement absolu */
-    position: relative;
     
     /* Doit correspondre à la largeur de votre image (1920px) */
     width: 1920px; 
