@@ -300,8 +300,7 @@ a:hover {
 }
 
 /* Règle générale pour le bouton (désactivé sur PC) */
-a.button-cache,
-a.button-visible {
+a.button {
     padding: 1px 6px;
     text-decoration: none;
     /* Les styles mobiles seront appliqués ci-dessous */
