@@ -197,9 +197,13 @@ a:hover {
 .cv-container-desktop {
     
     /* Doit correspondre à la largeur de votre image (1920px) */
-    width: 1920px; 
-    margin: 20px auto; 
+    position:relative;
+    max-width: 1920px; 
+    width: 100%
+    margin: 20px auto;
     overflow: hidden; 
+    position:relative;
+    overflow: hidden;
 }
 
 .iceberg-desktop-img {
