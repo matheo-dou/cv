@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Assurez-vous que votre CSV contient des colonnes comme 'titre', 'etablissement', 'date'
                     listItem.classList.add('etudes-item');
                     listItem.innerHTML = `
-                        <div class="item-title">${item.diplome| 'Titre manquant'}</div>
+                        <div class="item-title">${item.diplome || 'Titre manquant'}</div>
                         <div class="item-subtitle">${item.date || ''} 
                             <span class="item-date">${item.etablissement || ''}</span>
                         </div>
