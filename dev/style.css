@@ -316,8 +316,7 @@ a.button-visible {
     }
 
     /* Afficher les sections mobiles (s'applique sur index.html et cv_cache.html) */
-    .cv-page-mobile-visible,
-    .cv-page-mobile-cachee {
+    .cv-page-mobile {
         display: flex; 
         flex-direction: column;
         align-items: center; 
