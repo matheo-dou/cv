@@ -307,9 +307,9 @@ a.button-visible {
 }
 
 
-/* --- MEDIA QUERY pour l'Affichage Mobile (Écrans <= 768px) --- */
+/* --- MEDIA QUERY pour l'Affichage Mobile --- */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     
     /* Masquer la version PC sur mobile */
     .cv-page-desktop {
