@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+#contact-info-section {
+    background-color: #333; /* Dark background for the header (Cyber style) */
+    color: #00ff66; /* Neon green text for a tech/cyber feel */
+    padding: 20px;
+    text-align: center;
+}
+
+#contact-info-section h2 {
+    margin-bottom: 5px;
+}
+
+#contact-info-section p.titre-cv {
+    font-style: italic;
+    font-size: 1.1em;
+}
+
+#contact-info-section ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+#contact-info-section ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+#contact-info-section a {
+    color: #00ccff; /* Bright blue for links */
+    text-decoration: none;
+}
+
+#contact-info-section a:hover {
+    text-decoration: underline;
+}
