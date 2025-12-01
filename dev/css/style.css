@@ -59,7 +59,7 @@ body {
     background-blend-mode: multiply; 
     background-color: var(--color-header-overlay);
     color: var(--color-header-text);
-    padding: 40px 20px;
+    padding: 20px 20px;
     text-align: center;
     min-height: 250px;
 }
