@@ -41,6 +41,14 @@ body {
     counter-increment: line-counter;
 }
 
+.cv-line::before {	
+    position: absolute;	
+    left: -40px;
+    text-align: right;	
+    width: 30px;	
+    color: var(--color-primary);
+    font-size: 0.8em;
+
 #contact-info-section {
     background-image: url('../images/cyber-bg.jpg');
     background-size: cover;
