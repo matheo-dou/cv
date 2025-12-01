@@ -1,0 +1,22 @@
+[
+  {
+    "date": "00/0000 - 00/0000",
+    "title": "Titre 1",
+    "company": "Sociéter",
+    "location": "Ville",
+    "details": [
+      "Ligne 1 Details",
+      "Ligne 2 Details"
+    ]
+  },
+  {
+    "date": "00/0000 - 00/0000",
+    "title": "Titre 2",
+    "company": "Sociéter",
+    "location": "Ville",
+    "details": [
+      "Ligne 1 Details",
+      "Ligne 2 Details"
+    ]
+  }
+]
