@@ -31,7 +31,8 @@ body {
 }
 
 #cv-container {
-    
+    margin-left: 50px;
+    padding-left: 10px;
 }
 
 .cv-line {	
