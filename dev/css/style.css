@@ -37,9 +37,6 @@ body {
 
 .cv-line {	
     position: relative;
-    margin-left: 50px;
-    padding-left: 10px;
-    counter-increment: line-counter;
 }
 
 .cv-line::before {	
