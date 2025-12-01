@@ -207,7 +207,7 @@ a:hover {
 }
 
 .iceberg-desktop-bg {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -257,7 +257,7 @@ a:hover {
 
 /* 1. Coordonnées (Sur la partie visible) */
 .desktop-info-contact {
-    position: absolute;
+    position: fixed;
     top: 150px;    /* A AJUSTER */
     left: 600px;   /* A AJUSTER */
     width: 400px;  
@@ -267,7 +267,7 @@ a:hover {
 
 /* 2. Expériences (Partie cachée - 1) */
 .desktop-experiences {
-    position: absolute;
+    position: fixed;
     top: 650px;    /* A AJUSTER */
     left: 100px;   /* A AJUSTER */
     width: 800px;
@@ -277,7 +277,7 @@ a:hover {
 
 /* 3. Compétences (Partie cachée - 2) */
 .desktop-competences {
-    position: absolute;
+    position: fixed;
     top: 700px;    /* A AJUSTER */
     right: 50px;   /* A AJUSTER */
     width: 400px;
@@ -287,7 +287,7 @@ a:hover {
 
 /* 4. Études (Partie cachée - 3) */
 .desktop-etudes {
-    position: absolute;
+    position: fixed;
     top: 300px;    /* A AJUSTER */
     left: 360px;   /* A AJUSTER */
     width: 600px;
@@ -297,7 +297,7 @@ a:hover {
 
 /* 5. Certifications (Partie cachée - 4) */
 .desktop-certifications {
-    position: absolute;
+    position: fixed;
     top: 300px;    /* A AJUSTER */
     right: 100px;  /* A AJUSTER */
     width: 400px;
@@ -340,7 +340,7 @@ a.button-visible {
     }
      
     .iceberg-mobile-visible {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -357,7 +357,7 @@ a.button-visible {
     }
   
     .iceberg-mobile-cache {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
