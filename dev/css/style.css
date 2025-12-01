@@ -7,6 +7,7 @@
     --color-text-accent: var(--color-primary);
     --color-text-link: var(--color-secondary);
     --color-header-overlay: rgba(0, 0, 0, 0.6);
+    --color-body-bg: rgba(0, 0, 0, 1);
     --color-header-text: #ffffff;
 }
 
@@ -15,7 +16,11 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: var(--color-dark-bg);
+    background-image:url('../images/ia-cyber-bg.jpg')
+    background-size: cover;
+    background-attachment: fixed;
+    filter: blur(2px);
+    background-color: var(--color-body-bg);
     color: var(--color-text-light);
 }
 
