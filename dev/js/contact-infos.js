@@ -17,8 +17,8 @@ async function chargerInfosContact() {
                 <li>📧 <a href="mailto:${data.email}">${data.email}</a></li>
                 <li>📱 ${data.telephone}</li>
                 <li>📍 ${data.ville}</li>
-                <li>🔗 **LinkedIn:** <a href="${data.linkedin}" target="_blank">Profil LinkedIn</a></li>
-                <li>🐱 **GitHub:** <a href="${data.github}" target="_blank">Profil GitHub</a></li>
+                <li>🔗 <B>LinkedIn :</B> <a href="${data.linkedin}" target="_blank">Profil LinkedIn</a></li>
+                <li>🐱 <B>GitHub :</B> <a href="${data.github}" target="_blank">Profil GitHub</a></li>
             </ul>
         `;
         
@@ -28,7 +28,7 @@ async function chargerInfosContact() {
                 <ul class="certifications-list">
             `;
             data.certifications.forEach(cert => {
-                htmlContent += `<li>🛡️ ${cert}</li>`;
+                htmlContent += `<li>${cert}</li>`;
             });
             htmlContent += `</ul>`;
         }
