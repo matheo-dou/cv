@@ -34,6 +34,13 @@ body {
     
 }
 
+.cv-line {	
+    position: relative;
+    margin-left: 50px;
+    padding-left: 10px;
+    counter-increment: line-counter;
+}
+
 #contact-info-section {
     background-image: url('../images/cyber-bg.jpg');
     background-size: cover;
