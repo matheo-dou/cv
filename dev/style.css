@@ -220,7 +220,7 @@ a:hover {
     /* CRUCIAL pour l'adaptation sans déformation : */
     background-size: cover; 
     
-    background-position: center center;
+
     background-attachment: fixed; /* L'image reste fixe lors du scroll */
 }
 
@@ -352,7 +352,7 @@ a.button-visible {
     
     /* CRUCIAL pour l'adaptation sans déformation : */
     background-size: cover; 
-    background-position: center center;
+
     background-attachment: fixed; /* L'image reste fixe lors du scroll */
     }
   
@@ -369,7 +369,7 @@ a.button-visible {
     
     /* CRUCIAL pour l'adaptation sans déformation : */
     background-size: cover; 
-    background-position: center center;
+
     background-attachment: fixed; /* L'image reste fixe lors du scroll */
     }
   
