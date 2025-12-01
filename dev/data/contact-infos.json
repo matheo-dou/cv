@@ -1,0 +1,13 @@
+{
+  "nom": "Votre Nom",
+  "titre": "Spécialiste en Cybersécurité",
+  "email": "votre.email@example.com",
+  "telephone": "+33 6 XX XX XX XX",
+  "linkedin": "https://www.linkedin.com/in/votreprofil",
+  "github": "https://github.com/votreprofil",
+  "ville": "Votre Ville, Pays",
+  "certifications": [
+    "Certificat 1 (Ex: CompTIA Security+)",
+    "Certificat 2 (Ex: CEH ou OSCP)"
+  ]
+}
