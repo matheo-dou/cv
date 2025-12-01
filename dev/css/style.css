@@ -16,7 +16,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-image:url('../images/ia-cyber-bg.jpg')
+    background-image: url('../images/ia-cyber-bg.jpg');
     background-size: cover;
     background-attachment: fixed;
     filter: blur(2px);
