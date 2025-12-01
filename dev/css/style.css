@@ -20,10 +20,10 @@ body {
 }
 
 #background {
-    position: fixed;
+    position: static;
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: -1;
-    background-image: url('../images/ia-cyber-bg.jpg');
+    background-image: url('../images/ia-cyber-bg.jpg') !important;
     background-size: cover;
     background-position: center;
     filter: blur(2px);
