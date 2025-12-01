@@ -231,7 +231,6 @@ a:hover {
 .cv-container-desktop .item-title,
 .cv-container-desktop .item-subtitle {
     /* Rendre le texte blanc ou clair sur l'image foncée */
-    color: white !important;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
     margin: 0; 
     padding: 0;
