@@ -1,25 +1,45 @@
+:root {
+    --color-primary: #00ff66;
+    --color-secondary: #38c4ff;
+    --color-dark-bg: #1a1a1a;
+    --color-light-bg: #2c2c2c;
+    --color-text-light: #f4f4f4;
+    --color-text-accent: var(--color-primary);
+    --color-text-link: var(--color-secondary);
+    --color-header-overlay: rgba(0, 0, 0, 0.6);
+    --color-header-text: #ffffff;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background-color: var(--color-dark-bg);
+    color: var(--color-text-light);
 }
 
 #contact-info-section {
-    background-color: #333; /* Dark background for the header (Cyber style) */
-    color: #00ff66; /* Neon green text for a tech/cyber feel */
-    padding: 20px;
+    background-image: url('images/cyber-gg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply; 
+    background-color: var(--color-header-overlay);
+    color: var(--color-header-text);
+    padding: 40px 20px;
     text-align: center;
+    min-height: 250px;
 }
 
-#contact-info-section h2 {
-    margin-bottom: 5px;
-}
-
+#contact-info-section h2, 
 #contact-info-section p.titre-cv {
-    font-style: italic;
-    font-size: 1.1em;
+    color: var(--color-header-text);
+    text-shadow: 1px 1px 4px var(--color-dark-bg);
+}
+
+#contact-info-section a {
+    color: var(--color-text-link);
 }
 
 #contact-info-section ul {
@@ -33,11 +53,8 @@ body {
     margin: 0 10px;
 }
 
-#contact-info-section a {
-    color: #00ccff; /* Bright blue for links */
-    text-decoration: none;
-}
-
-#contact-info-section a:hover {
-    text-decoration: underline;
+.certifications-list li::before {
+    content: "🛡️";
+    color: var(--color-primary);
+    margin-right: 5px;
 }
