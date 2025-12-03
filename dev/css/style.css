@@ -214,7 +214,7 @@ a:hover {
     height: 100%; 
     z-index: 1;
     
-    background-image: url('images/Fond CV iceberg PC V1-2025.png'); 
+    background-image: url('../images/Fond CV iceberg PC V1-2025.png'); 
     background-repeat: no-repeat;
     
     /* CRUCIAL pour l'adaptation sans déformation : */
@@ -346,7 +346,7 @@ a.button-visible {
     height: 100%; 
     z-index: 1;
     
-    background-image: url('images/NOM-IMAGE.png'); /* CHANGER NOM IMAGE iceberg mobile visible !!!*/
+    background-image: url('../images/NOM-IMAGE.png'); /* CHANGER NOM IMAGE iceberg mobile visible !!!*/
     background-repeat: no-repeat;
     
     /* CRUCIAL pour l'adaptation sans déformation : */
