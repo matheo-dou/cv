@@ -278,7 +278,7 @@ a:hover {
 .desktop-competences {
     position: fixed;
     top: 700px;    /* A AJUSTER */
-    right: 50px;   /* A AJUSTER */
+    left: 150px;   /* A AJUSTER */
     width: 400px;
     z-index: 10;
     text-align: left;
@@ -298,7 +298,7 @@ a:hover {
 .desktop-certifications {
     position: fixed;
     top: 300px;    /* A AJUSTER */
-    right: 100px;  /* A AJUSTER */
+    left: 150px;  /* A AJUSTER */
     width: 400px;
     z-index: 10;
     text-align: left;
