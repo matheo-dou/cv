@@ -11,14 +11,53 @@ jobs:
   build-json:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Download and Convert
         run: |
           mkdir -p datas
-          node -e "
-          const fs = require('fs');
-          const exec = require('child_process').execSync;
+          
+          # Fonction pour télécharger et convertir en JSON propre
+          download_and_convert() {
+            local name=$1
+            local url=$2
+            echo "Téléchargement de $name..."
+            
+            # Téléchargement avec curl -L (suit les redirections)
+            curl -L -s "$url" > "datas/temp.csv"
+            
+            # Conversion CSV vers JSON via Node.js
+            node -e "
+            const fs = require('fs');
+            const data = fs.readFileSync('datas/temp.csv', 'utf8');
+            const lines = data.split('\n').filter(l => l.trim() !== '');
+            const json = lines.slice(1).map(line => {
+              const v = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/); // Split intelligent pour les virgules
+              const clean = v.map(str => str ? str.replace(/^\"|\"$/g, '').trim() : '');
+              
+              if ('$name' === 'experiences') return { id: clean[0], poste: clean[1], entreprise: clean[2], date: clean[3], description: clean.slice(4).join(',') };
+              if ('$name' === 'competences') return { id: clean[0], competence: clean[1], niveau: clean[2] };
+              if ('$name' === 'certifications') return { id: clean[0], diplome: clean[1], date: clean[2] };
+              if ('$name' === 'etudes') return { id: clean[0], diplome: clean[1], etablissement: clean[2], date: clean[3], description: clean.slice(4).join(',') };
+            }).filter(item => item && item.id && !isNaN(parseInt(item.id)) && parseInt(item.id) !== 0);
+            
+            fs.writeFileSync('datas/$name.json', JSON.stringify(json, null, 2));
+            "
+          }
 
-          const sources = [
-            { name: 'experiences', url: '
+          download_and_convert "experiences" "https://docs.google.com/spreadsheets/d/e/2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY/pub?output=csv"
+          download_and_convert "competences" "https://docs.google.com/spreadsheets/d/e/2PACX-1vRtJPv7rSa7Tb7tEamE9OPO4O0XH8ef8qtrfGlOgdJy1G5vJrOGCVfupGN_p9eTayHo_HR-CNZY0AO6/pub?output=csv"
+          download_and_convert "certifications" "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPVMO7hsB44WhjM9BwPZlw7FH_fkb2f-tKsI-n6Qk44ekNIxsxgU6xBNCxXhM-psXC_GkHM6exQX9W/pub?output=csv"
+          download_and_convert "etudes" "https://docs.google.com/spreadsheets/d/e/2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7/pub?output=csv"
+          
+          rm datas/temp.csv
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add datas/*.json
+          git commit -m 'Sync datas from Google Sheets' || exit 0
+          git push
+
