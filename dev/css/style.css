@@ -119,10 +119,10 @@ div[class^="desktop-"]::-webkit-scrollbar-thumb {
 }
 
 /* --- POSITIONS PRÉCISES (Ajuste selon ton image) --- */
-.desktop-experiences { top: 40%; left: 10%; }
-.desktop-competences { top: 41%; right: 9%; }
-.desktop-etudes      { top: 22%; left: 40%; }
-.desktop-certifications { top: 78%; right: 9%; }
+.desktop-experiences { top: 40% !important; left: 10%; }
+.desktop-competences { top: 41% !important; right: 9%; }
+.desktop-etudes      { top: 22% !important; left: 40%; }
+.desktop-certifications { top: 78% !important; right: 9%; }
 
 /* Style des titres dans l'iceberg */
 .cv-page-desktop h3 {
