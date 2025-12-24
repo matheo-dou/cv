@@ -4,9 +4,7 @@
   --accent-color: #1254db;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -20,12 +18,12 @@ body {
   align-items: center; 
 }
 
-/* --- Conteneur Desktop (Le secret du collage) --- */
+/* --- VERSION DESKTOP --- */
 .cv-page-desktop {
   position: relative;
   display: inline-block; 
   width: 100%;
-  max-width: 1920px; /* Taille réelle de ton image */
+  max-width: 1920px; 
   margin: 0 auto;
 }
 
@@ -33,94 +31,42 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  z-index: 1;
 }
 
-/* --- Style des Blocs de Texte --- */
-/* On utilise position: absolute pour qu'ils soient liés au parent .cv-page-desktop */
-.desktop-informations-personnel, 
-.desktop-experiences, 
-.desktop-competences, 
-.desktop-etudes, 
-.desktop-certifications {
+.cv-page-desktop div[class^="desktop-"] {
   position: absolute;
   z-index: 10;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   padding: 1vw;
   border-radius: 8px;
-  /* UNITE VW : le texte rétrécit si l'image rétrécit au dézoom */
   font-size: 0.85vw; 
   color: var(--text-color);
-  pointer-events: auto;
 }
 
-/* --- Positionnement en % (À ajuster précisément selon ton image) --- */
-
-.desktop-informations-personnel {
-  top: 32%;      /* Position verticale sur l'iceberg */
-  left: 50%;     /* Position horizontale */
-  transform: translateX(-50%); /* Pour centrer le bloc exactement sur le point 50% */
-  width: 30%;
-  text-align: center;
+/* --- VERSION MOBILE (Cachée par défaut) --- */
+.cv-page-mobile {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
-.desktop-experiences {
-  top: 10%;
-  left: 5%;
-  width: 25%;
+.background-mobile {
+  width: 100%;
+  height: auto;
 }
 
-.desktop-competences {
-  top: 10%;
-  right: 5%;
-  width: 25%;
-}
+/* --- LOGIQUE DE BASCULE (Media Queries) --- */
 
-.desktop-etudes {
-  top: 55%;
-  left: 10%;
-  width: 22%;
-}
-
-.desktop-certifications {
-  top: 75%;
-  right: 10%;
-  width: 22%;
-}
-
-/* --- Typographie Proportionnelle --- */
-h1 { font-size: 2.5vw; margin: 0; color: #1b5e20; }
-h2 { font-size: 1.2vw; color: var(--accent-color); }
-h3 { font-size: 1.1vw; border-bottom: 2px solid var(--accent-color); margin-bottom: 0.5vw; }
-ul { list-style: none; padding: 0; margin: 0; }
-li { margin-bottom: 0.4vw; line-height: 1.2; }
-
-/* --- Version Mobile --- */
-@media (max-width: 1110px) {
+/* Si l'écran est petit (Mobile) */
+@media (max-width: 1024px) {
   .cv-page-desktop {
-    display: none;
+    display: none !important;
   }
   
   .cv-page-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .background-mobile {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-
-  .mobile-actions {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    display: flex !important;
   }
 
   .button-cache {
@@ -129,16 +75,26 @@ li { margin-bottom: 0.4vw; line-height: 1.2; }
     padding: 15px 30px;
     text-decoration: none;
     border-radius: 5px;
+    margin: 20px 0;
     font-weight: bold;
   }
 }
 
-/* --- Footer --- */
+/* --- Styles de texte Desktop --- */
+.desktop-informations-personnel { top: 32%; left: 50%; transform: translateX(-50%); width: 30%; text-align: center; }
+.desktop-experiences { top: 10%; left: 5%; width: 25%; }
+.desktop-competences { top: 10%; right: 5%; width: 25%; }
+.desktop-etudes { top: 55%; left: 10%; width: 22%; }
+.desktop-certifications { top: 75%; right: 10%; width: 22%; }
+
+h1 { font-size: 2.5vw; margin: 0; }
+h3 { font-size: 1.1vw; border-bottom: 2px solid var(--accent-color); }
+ul { list-style: none; padding: 0; }
+
 .footer {
   width: 100%;
   text-align: center;
   padding: 20px;
-  font-size: 0.8em;
   background: white;
   margin-top: auto;
 }
