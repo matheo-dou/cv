@@ -1,38 +1,51 @@
 [
   {
-    "id": "<HEAD>",
-    "description": ""
+    "id": "1",
+    "poste": "Réparateur informatique",
+    "entreprise": "Futur PC - Fruges 62310",
+    "date": "2021 - 2022 _ Stage de 6 semaines",
+    "description": "- Réparation d'écrans de téléphone<br>- Réparation d'ordinateurs"
   },
   {
-    "id": "<TITLE>Temporary Redirect</TITLE>",
-    "description": ""
+    "id": "2",
+    "poste": "Bénévole au Vintage Gaming Days 2022 et Pop Geek 2023",
+    "entreprise": "Béthune 62400",
+    "date": "2022 et 2023",
+    "description": "- Accueil des visiteurs<br>- Assistance à l'utilisation des consoles de Jeux vidéo<br>- Surveillance du site<br>- Rangement du matériel"
   },
   {
-    "id": "</HEAD>",
-    "description": ""
+    "id": "3",
+    "poste": "Réparateur informatique",
+    "entreprise": "Web Deal Market - Béthune 62400",
+    "date": "2023 _ Stage de 4 Semaines",
+    "description": "- Réparation de Télévisions"
   },
   {
-    "id": "<BODY BGCOLOR=\"#FFFFFF\" TEXT=\"#000000\">",
-    "description": ""
+    "id": "4",
+    "poste": "Réparateur d'éctroménager",
+    "entreprise": "DKA électro depanne - Béthune 62400",
+    "date": "2023 _ Stage de 4 Semaines",
+    "description": "- Réparation d'électroménager"
   },
   {
-    "id": "<!-- GSE Default Error -->",
-    "description": ""
+    "id": "5",
+    "poste": "Monteur Vidéo",
+    "entreprise": "Cyberbase de Saint Laurent Blangy 62223",
+    "date": "2024 _ Stage de 4 Semaines",
+    "description": "- Montage Vidéo"
   },
   {
-    "id": "<H1>Temporary Redirect</H1>",
-    "description": ""
+    "id": "6",
+    "poste": "Technicien informatique",
+    "entreprise": "Université de Lille - Cité Scientifique - Villeneuve d'Ascq 59650",
+    "date": "2025 _ Stage de 30 Jours</span></div>",
+    "description": "- installation de Vidéos Projecteurs<br>- Réparation d'ordinateurs<br>- Création de Scripts<br>- Mise a Jours d'ordinateurs en réseaux"
   },
   {
-    "id": "The document has moved <A HREF=\"https://doc-08-bc-sheets.googleusercontent.com/pub/54bogvaave6cua4cdnls17ksc4/ovd7dcq78jgikg1ae7itpsqut4/1766585795000/113955035271933666253/*/e@2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY?output=csv\">here</A>.",
-    "description": ""
-  },
-  {
-    "id": "</BODY>",
-    "description": ""
-  },
-  {
-    "id": "</HTML>",
-    "description": ""
+    "id": "7",
+    "poste": "Bénévole dans une Radio Associative",
+    "entreprise": "Micros Rebelles - Rue Léon Blum - Lens 62300",
+    "date": "Depuis 2025",
+    "description": "- Création d'émissions<br>- Montage Audio<br>- Assistance ingé son"
   }
 ]

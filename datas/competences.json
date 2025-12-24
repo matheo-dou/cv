@@ -1,29 +1,17 @@
 [
   {
-    "id": "<HEAD>"
+    "id": "1",
+    "competence": "Programmation WEB : HTML - CSS - PHP - JS",
+    "niveau": ""
   },
   {
-    "id": "<TITLE>Temporary Redirect</TITLE>"
+    "id": "2",
+    "competence": "Programmation Logiciel : CPP - Python",
+    "niveau": ""
   },
   {
-    "id": "</HEAD>"
-  },
-  {
-    "id": "<BODY BGCOLOR=\"#FFFFFF\" TEXT=\"#000000\">"
-  },
-  {
-    "id": "<!-- GSE Default Error -->"
-  },
-  {
-    "id": "<H1>Temporary Redirect</H1>"
-  },
-  {
-    "id": "The document has moved <A HREF=\"https://doc-14-bc-sheets.googleusercontent.com/pub/54bogvaave6cua4cdnls17ksc4/m3n022m7en1da6e6han477qgic/1766585795000/113955035271933666253/*/e@2PACX-1vRtJPv7rSa7Tb7tEamE9OPO4O0XH8ef8qtrfGlOgdJy1G5vJrOGCVfupGN_p9eTayHo_HR-CNZY0AO6?output=csv\">here</A>."
-  },
-  {
-    "id": "</BODY>"
-  },
-  {
-    "id": "</HTML>"
+    "id": "3",
+    "competence": "Gestion et Sécurisation de Réseau informatique : expérience principale en simulation avec GNS3 Cisco",
+    "niveau": ""
   }
 ]
