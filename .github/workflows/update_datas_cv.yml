@@ -1,5 +1,8 @@
 name: Update CV Datas
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
