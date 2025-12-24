@@ -269,7 +269,6 @@ a:hover {
     position: fixed;
     top: 650px;    /* A AJUSTER */
     left: 100px;   /* A AJUSTER */
-    width: 800px;
     z-index: 10;
     text-align: left;
 }
