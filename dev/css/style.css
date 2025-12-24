@@ -1,408 +1,124 @@
 :root {
   --primary-bg-color: #ebe7eb;
-  --secondary-bg-color: #e6e6fa;
-  --tertiary-bg-color: #e6f5e6;
   --text-color: #343a40;
-  --heading-color: #1b5e20;
   --accent-color: #1254db;
-  --soft-accent-color: #4db6ac;
-  --border-color: #dee2e6;
+  --heading-color: #1b5e20;
 }
-
-/* --- Styles de Base et Typographie --- */
 
 body {
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-bg-color);
   font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-  background-color: var(--primary-bg-color) !important;
-  color: var(--text-color);
+  overflow-x: hidden;
 }
 
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  background-color: var(--secondary-bg-color) !important;
-  padding: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* --- LOGIQUE DE POSITIONNEMENT (Commune) --- */
+
+.cv-page-desktop, .cv-page-mobile {
+  position: relative; /* Repère pour les textes en absolute */
+  width: 100%;
+  display: block;
+}
+
+.background-iceberg {
+  width: 100%;
+  height: auto;
+  display: block; /* Supprime l'espace blanc sous l'image */
+}
+
+/* Style des blocs de texte sur l'image */
+.cv-page-desktop div[class^="desktop-"] {
+  position: absolute;
+  z-index: 10;
+  width: 22%; /* Largeur fixe relative à l'image */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 1vw;
   border-radius: 8px;
+  text-align: left;
+  /* La taille du texte s'adapte à la largeur de l'écran (zoom-friendly) */
+  font-size: 0.85vw; 
 }
 
-.header {
-  background-color: var(--tertiary-bg-color) !important;
-  padding: 25px 30px;
-  margin: -30px -30px 20px -30px;
-  text-align: center;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+/* --- COORDONNÉES DESKTOP (À ajuster selon votre image) --- */
+
+.desktop-informations-personnel {
+  top: 5%;
+  left: 5%;
+  width: 25% !important;
 }
 
-.header h1 {
-  color: var(--heading-color) !important;
-  margin-top: 0;
-  margin-bottom: 5px;
-  font-size: 2.5em;
+.desktop-informations-personnel h1 { font-size: 2.2vw; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+.desktop-experiences {
+  top: 40%;
+  left: 5%;
 }
 
-.header h2 {
-  color: var(--accent-color) !important;
-  font-size: 1.2em;
-  font-weight: normal;
-  margin-bottom: 15px;
+.desktop-competences {
+  top: 40%;
+  right: 5%;
 }
 
-.header p {
-  margin: 0;
-  font-size: 0.9em;
-  color: var(--text-color);
+.desktop-etudes {
+  top: 70%;
+  left: 20%;
 }
 
-.header a {
-  color: var(--accent-color);
-  text-decoration: none;
+.desktop-certifications {
+  top: 75%;
+  right: 15%;
 }
 
-.header a:hover {
-  text-decoration: underline;
+/* --- STYLES DES LISTES --- */
+ul { list-style: none; padding: 0; }
+li { margin-bottom: 0.5vw; }
+h3 { 
+  font-size: 1.2vw; 
+  border-bottom: 2px solid var(--accent-color);
+  color: white;
 }
 
-.nav {
-    background-color: var(--secondary-bg-color) !important;
-    padding: 10px 0;
-    margin-bottom: 20px;
-    border-radius: 0;
-    box-shadow: none;
-    border-bottom: 1px solid var(--border-color);
+/* --- RESPONSIVE : GESTION DES DEUX VERSIONS --- */
+
+/* Cas PC : On cache la version mobile */
+@media (min-width: 1025px) {
+  .cv-page-mobile { display: none; }
 }
 
-.nav ul {
+/* Cas Mobile : On cache la version PC */
+@media (max-width: 1024px) {
+  .cv-page-desktop { display: none; }
+  
+  .cv-page-mobile {
     display: flex;
-    justify-content: space-around;
-    padding: 0 10px;
-    list-style: none;
-    margin: 0;
-    flex-wrap: wrap; 
-}
+    flex-direction: column;
+    align-items: center;
+  }
 
-.nav li {
-    margin: 2px 3px;
-}
+  .mobile-informations-personnel {
+    position: absolute;
+    top: 10%;
+    color: white;
+    text-align: center;
+  }
 
-.nav a {
-    color: var(--heading-color);
+  .button-cache {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 15px 25px;
     text-decoration: none;
+    border-radius: 50px;
+    margin-top: 20px;
     font-weight: bold;
-    padding: 5px 10px;
-    transition: color 0.3s, border-bottom 0.3s;
-}
-
-.nav a:hover {
-    color: var(--accent-color);
-    border-bottom: 2px solid var(--accent-color);
-}
-
-.nav a.active {
-    color: var(--accent-color);
-    border-bottom: 3px solid var(--accent-color);
-}
-
-h3 {
-  color: var(--heading-color);
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 8px;
-  margin-top: 40px;
-  margin-bottom: 15px;
-  font-size: 1.4em;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  margin-bottom: 15px;
-}
-
-.item-title {
-  font-weight: bold;
-  color: var(--heading-color);
-  font-size: 1.1em;
-}
-
-.item-subtitle {
-  color: var(--accent-color);
-  font-size: 0.95em;
-  margin-top: 2px;
-  margin-bottom: 5px;
-}
-
-.item-date {
-  color: #777;
-  font-size: 0.85em;
-  float: right;
-}
-
-.item-description-container p {
-    color: var(--text-color);
-    margin-top: 5px;
-    white-space: pre-wrap;
-    /* Ajustement pour l'injection JS des paragraphes */
-    margin-bottom: 5px; 
-}
-
-a {
-  color: var(--accent-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-}
-
-.skills-list li {
-  background-color: var(--soft-accent-color) !important;
-  color: #ffffff;
-  padding: 5px 12px;
-  margin: 0 10px 10px 0;
-  border-radius: 5px;
-  font-size: 0.9em;
-  border: 1px solid var(--soft-accent-color);
+  }
 }
 
 .footer {
+  padding: 20px;
   text-align: center;
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border-color);
+  background: #fff;
   font-size: 0.8em;
-  color: #777;
-}
-
-/* --- Règles Spécifiques au Design Iceberg (Desktop) --- */
-
-.cv-page-desktop {
-    display: block;
-    width: 100%;
-    haight: auto;
-}
-
-.cv-container-desktop {
-    
-    /* Doit correspondre à la largeur de votre image (1920px) */
-    position:relative;
-    max-width: 1920px; 
-    width: 100%;
-    margin: 20px auto;
-    overflow: hidden; 
-    position:relative;
-    overflow: hidden;
-}
-
-.iceberg-desktop-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; 
-    z-index: 1;
-    
-    background-image: url('../images/Fond CV iceberg PC V1-2025.png'); 
-    background-repeat: no-repeat;
-    
-    /* CRUCIAL pour l'adaptation sans déformation : */
-    background-size: cover; 
-    
-
-    background-attachment: fixed; /* L'image reste fixe lors du scroll */
-}
-
-/* Style général des contenus superposés sur l'Iceberg PC */
-.cv-container-desktop h3,
-.cv-container-desktop p,
-.cv-container-desktop li,
-.cv-container-desktop .item-title,
-.cv-container-desktop .item-subtitle {
-    /* Rendre le texte blanc ou clair sur l'image foncée */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
-    margin: 0; 
-    padding: 0;
-}
-
-.cv-container-desktop h3 {
-    border-bottom: 2px solid var(--accent-color) !important;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-.desktop-experiences ul,
-.desktop-competences ul,
-.desktop-etudes ul,
-.desktop-certifications ul {
-    list-style: none;
-    padding: 0;
-    /* Optionnel: réduire l'opacité des listes pour l'effet de profondeur */
-    /* opacity: 0.9; */ 
-}
-
-/* --- Positionnement Absolu des Blocs PC (À AJUSTER) --- */
-
-/* 1. Coordonnées (Sur la partie visible) */
-.desktop-info-contact {
-    position: fixed;
-    top: 150px;    /* A AJUSTER */
-    left: 600px;   /* A AJUSTER */
-    width: 400px;  
-    z-index: 10;   
-    text-align: left;
-}
-
-/* 2. Expériences (Partie cachée - 1) */
-.desktop-experiences {
-    position: fixed;
-    top: 650px;    /* A AJUSTER */
-    left: 100px;   /* A AJUSTER */
-    z-index: 10;
-    text-align: left;
-}
-
-/* 3. Compétences (Partie cachée - 2) */
-.desktop-competences {
-    position: fixed;
-    top: 700px;    /* A AJUSTER */
-    left: 150px;   /* A AJUSTER */
-    width: 400px;
-    z-index: 10;
-    text-align: left;
-}
-
-/* 4. Études (Partie cachée - 3) */
-.desktop-etudes {
-    position: fixed;
-    top: 300px;    /* A AJUSTER */
-    left: 360px;   /* A AJUSTER */
-    width: 600px;
-    z-index: 10;
-    text-align: left;
-}
-
-/* 5. Certifications (Partie cachée - 4) */
-.desktop-certifications {
-    position: fixed;
-    top: 300px;    /* A AJUSTER */
-    left: 150px;  /* A AJUSTER */
-    width: 400px;
-    z-index: 10;
-    text-align: left;
-}
-
-/* --- Gestion Mobile (Media Queries) --- */
-
-/* Masquer les sections mobiles par défaut (sur PC) */
-.cv-page-mobile {
-    display: none; 
-}
-
-/* Règle générale pour le bouton (désactivé sur PC) */
-a.button-cache,
-a.button-visible {
-    display: none;
-    /* Les styles mobiles seront appliqués ci-dessous */
-}
-
-
-/* --- MEDIA QUERY pour l'Affichage Mobile --- */
-
-@media (max-width: 1110px) {
-    
-    /* Masquer la version PC sur mobile */
-    .cv-page-desktop {
-        display: none !important;
-    }
-
-    /* Afficher les sections mobiles (s'applique sur index.html et cv_cache.html) */
-    .cv-page-mobile {
-        display: flex; 
-        flex-direction: column;
-        align-items: center; 
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-     
-    .iceberg-mobile-visible {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; 
-    z-index: 1;
-    
-    background-image: url('../images/NOM-IMAGE.png'); /* CHANGER NOM IMAGE iceberg mobile visible !!!*/
-    background-repeat: no-repeat;
-    
-    /* CRUCIAL pour l'adaptation sans déformation : */
-    background-size: cover; 
-
-    background-attachment: fixed; /* L'image reste fixe lors du scroll */
-    }
-  
-    .iceberg-mobile-cache {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; 
-    z-index: 1;
-    
-    background-image: url('images/NOM-IMAGE.png'); /* CHANGER NOM IMAGE iceberg mobile cachée !!!*/
-    background-repeat: no-repeat;
-    
-    /* CRUCIAL pour l'adaptation sans déformation : */
-    background-size: cover; 
-
-    background-attachment: fixed; /* L'image reste fixe lors du scroll */
-    }
-  
-    /* Conteneurs de contenu Mobile */
-    .mobile-info-contact,
-    .mobile-experiences,
-    .mobile-competences,
-    .mobile-etudes,
-    .mobile-certifications {
-        width: 90%; 
-        max-width: 600px;
-        margin: 10px 0;
-        padding: 15px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        /* Rétablir les couleurs par défaut pour la lisibilité sur fond blanc */
-        color: var(--text-color) !important;
-    }
-
-    a.button-cache,
-    a.button-visible {
-        /* Ce bloc contient le nouveau style visuel du bouton */
-        background-color: var(--accent-color); 
-        color: var(--text-color);
-        padding: 12px 25px;
-        margin: 20px 0 40px 0;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        display: block !important;
-    }
 }
