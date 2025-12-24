@@ -1,229 +1,176 @@
+/* --- Variables et Reset --- */
+
 :root {
-  --primary-bg-color: #EDFFE8;
-  --secondary-bg-color: #C5DED4;
+  --primary-bg-color: #ebe7eb;
+  --secondary-bg-color: #e6e6fa;
   --tertiary-bg-color: #e6f5e6;
   --text-color: #343a40;
   --heading-color: #1b5e20;
-  --accent-color: #cc3328;
+  --accent-color: #1254db;
   --soft-accent-color: #4db6ac;
   --border-color: #dee2e6;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
+  text-align: center;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: var(--primary-bg-color) !important;
+  background-color: var(--primary-bg-color);
   color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  background-color: var(--secondary-bg-color) !important;
-  padding: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.header {
-  background-color: var(--tertiary-bg-color) !important;
-  padding: 25px 30px;
-  margin: -30px -30px 20px -30px;
-  text-align: center;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-.header h1 {
-  color: var(--heading-color) !important;
-  margin-top: 0;
-  margin-bottom: 5px;
-  font-size: 2.5em;
-}
-
-.header h2 {
-  color: var(--accent-color) !important;
-  font-size: 1.2em;
-  font-weight: normal;
-  margin-bottom: 15px;
-}
-
-.header p {
-  margin: 0;
-  font-size: 0.9em;
-  color: var(--text-color);
-}
-
-.header a {
-  color: var(--accent-color);
-  text-decoration: none;
-}
-
-.header a:hover {
-  text-decoration: underline;
-}
-
-.nav {
-    background-color: var(--secondary-bg-color) !important;
-    padding: 10px 0;
-    margin-bottom: 20px;
-    border-radius: 0;
-    box-shadow: none;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.nav ul {
-    display: flex;
-    justify-content: space-around;
-    padding: 0 10px;
-    list-style: none;
-    margin: 0;
-    flex-wrap: wrap; 
-}
-
-.nav li {
-    margin: 2px 3px;
-}
-
-.nav a {
-    color: var(--heading-color);
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 10px;
-    transition: color 0.3s, border-bottom 0.3s;
-}
-
-.nav a:hover {
-    color: var(--accent-color);
-    border-bottom: 2px solid var(--accent-color);
-}
-
-.nav a.active {
-    color: var(--accent-color);
-    border-bottom: 3px solid var(--accent-color);
-}
-
-h3 {
-  color: var(--heading-color);
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 8px;
-  margin-top: 40px;
-  margin-bottom: 15px;
-  font-size: 1.4em;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  margin-bottom: 15px;
-}
-
+/* --- Typographie pour les listes (Injection JS) --- */
 .item-title {
   font-weight: bold;
   color: var(--heading-color);
   font-size: 1.1em;
+  display: block;
 }
 
 .item-subtitle {
   color: var(--accent-color);
   font-size: 0.95em;
-  margin-top: 2px;
   margin-bottom: 5px;
 }
 
-.item-date {
-  color: #777;
-  font-size: 0.85em;
-  float: right;
-}
-
-.item-description {
+.item-description-container p {
   color: var(--text-color);
   margin-top: 5px;
   white-space: pre-wrap;
-}
-
-a {
-  color: var(--accent-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-}
-
-.skills-list li {
-  background-color: var(--soft-accent-color) !important;
-  color: #ffffff;
-  padding: 5px 12px;
-  margin: 0 10px 10px 0;
-  border-radius: 5px;
   font-size: 0.9em;
-  border: 1px solid var(--soft-accent-color);
 }
 
+/* --- VERSION DESKTOP --- */
+.cv-page-desktop {
+  position: relative;
+  display: inline-block; /* L'image définit la taille du cadre */
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.background-desktop {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 1. Infos Personnelles : Alignement Horizontal (Ciel) */
+.desktop-informations-personnel {
+  position: absolute;
+  top: 4%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 5%;
+  z-index: 20;
+}
+
+.desktop-informations-personnel h1 {
+  font-size: 2.2vw;
+  color: var(--heading-color);
+  margin: 0;
+}
+
+.desktop-informations-personnel h2 {
+  font-size: 1.2vw;
+  color: var(--accent-color);
+  margin: 0;
+}
+
+/* 2. Blocs de contenu sur l'Iceberg (Déroulants) */
+.cv-page-desktop div[class^="desktop-"]:not(.desktop-informations-personnel) {
+  position: absolute;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.2); /* Effet translucide */
+  backdrop-filter: blur(8px);
+  padding: 1.5vw;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 24%;
+  text-align: left;
+  
+  /* Système de scroll */
+  max-height: 40%; /* Empêche le bloc de dépasser en bas */
+  overflow-y: auto; 
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+}
+
+/* Personnalisation de la barre de scroll (Chrome/Edge) */
+div[class^="desktop-"]::-webkit-scrollbar {
+  width: 6px;
+}
+div[class^="desktop-"]::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 10px;
+}
+
+/* --- POSITIONS PRÉCISES (Ajuste selon ton image) --- */
+.desktop-experiences { top: 40% !important; left: 10% !important; }
+.desktop-competences { top: 41% !important; right: 9% !important; }
+.desktop-etudes { top: 22% !important; left: 40% !important; }
+.desktop-certifications { top: 65% !important; left: 40% !important; }
+
+/* Style des titres dans l'iceberg */
+.cv-page-desktop h3 {
+  color: var(--heading-color);
+  border-bottom: 2px solid var(--accent-color);
+  font-size: 1.2vw;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+/* --- VERSION MOBILE --- */
+.cv-page-mobile {
+  display: none; /* Caché sur PC */
+  width: 100%;
+}
+
+@media (max-width: 1150px) {
+  .cv-page-desktop { display: none !important; }
+  .cv-page-mobile {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+  }
+  
+  .background-mobile {
+    width: 100%;
+    height: auto;
+  }
+
+  .button-cache {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+}
+
+/* --- Footer --- */
 .footer {
+  width: 100%;
+  padding: 20px;
   text-align: center;
-  margin-top: 40px;
-  padding-top: 20px;
+  background: white;
+  margin-top: auto;
   border-top: 1px solid var(--border-color);
-  font-size: 0.8em;
-  color: #777;
-}
-
-@media (max-width: 768px) {
-  .container {
-    margin: 20px 10px;
-    padding: 20px;
-  }
-
-  .header {
-    padding: 20px;
-    margin: -20px -20px 20px -20px;
-  }
-
-  .header h1 {
-    font-size: 2em;
-  }
-
-  .item-date {
-    float: none;
-    display: block;
-    margin-top: 5px;
-  }
-
-  .nav ul {
-      flex-direction: column; 
-      align-items: center;
-      padding-left: 0;
-  }
-
-  .nav li {
-      margin: 5px 0; 
-      width: 100%; 
-      text-align: center;
-  }
-
-  .nav a {
-      display: block; 
-      padding: 8px 10px;
-  }
-}
-
-@media (max-width: 600px) {
-    .container {
-      margin: 20px 5px;
-    }
 }

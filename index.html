@@ -5,433 +5,76 @@
     <link rel="icon" href="images/cv_icon.ico" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script defer src="conversion-csv-vers-json.js"></script> 
+    <script src="cv-loader.js"></script>
 </head>
 <body>
+
+    <div class="cv-page-desktop">
+        <img src="images/Fond CV iceberg PC V1-2025.png" class="background-desktop" alt="CV Iceberg">
+
+        <div class="desktop-informations-personnel">
+            <div>
+                <h1>Mathéo Douillez</h1>
+                <p>née le 24/11/2006</p>
+                <h2>Recherche Alternance - Cybersécurité</h2>
+            </div>
+
+            <div>
+                <p><strong>Disponibilités : </strong>Début Septembre 2026 (Rythme : 2 Semaines en entreprise, 1 semaine en cours)</p>
+                <p>Disponible dans le Secteur Haut de France</p>
+            </div>
+                
+            <div>
+            <p>Email: <a href="mailto:matheo.douillez3@gmail.com">matheo.douillez3@gmail.com</a></p>
+            <p>Téléphone: <a href="tel:+33650220913">06 50 22 09 13</a></p>
+            </div>
+        </div>
         
-  <script>
-    // FONCTION GLOBALE DE CONVERSION CSV VERS JSON
-    function csvToJSON(csv) {
-        const lines = csv.split('\n');
-        // Vérifie qu'il y a au moins une ligne d'en-tête
-        if (lines.length < 2) return []; 
-        
-        const headers = lines[0].split(',');
-        const result = [];
-        
-        for (let i = 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue;
-            
-            const currentline = lines[i].split(',');
-            const obj = {};
-            
-            // Assurez-vous que les colonnes correspondent
-            if (currentline.length < headers.length) continue; 
-            
-            for (let j = 0; j < headers.length; j++) {
-                let key = headers[j].trim().toLowerCase().replace(/['"]+/g, '');
-                let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
-                obj[key] = value;
-            }
-            
-            // Ligne de vérification de l'ID : seulement si l'ID est un nombre > 0
-            const idNumber = parseInt(obj.id);
-            if (isNaN(idNumber) || idNumber > 0) { // S'assure de garder les lignes si l'ID est manquant ou valide
-                result.push(obj);
-            }
-        }
-        return result;
-    }
-    // Note : Cette fonction DOIT être chargée avant tous les scripts de section qui l'appellent.
-  </script>
-  
-      <div class="container">
-      
-      <header class="header">
+          <div class="desktop-experiences">
+              <h2>Experiences</h2>
+              <ul id="desktop-experience-list"></ul>
+          </div>
+            <div class="desktop-competences">
+                <h2>Competences</h2>
+                <ul id="desktop-competences-list"></ul>
+            </div>
+            <div class="desktop-etudes">
+                <h2>Etudes-list</h2>
+                <ul id="desktop-etudes-list"></ul>
+            </div>
+            <div class="desktop-certifications">
+                <h2>Certifications</h2>
+                <ul id="desktop-certifications-list"></ul>
+            </div>
+        </div>
+
+<div class="cv-page-mobile">
+    <img src="images/iceberg-mobile.jpg" class="background-iceberg" alt="CV Iceberg Mobile">
+    
+    <div class="mobile-informations-personnel">
         <h1>Mathéo Douillez</h1>
         <h2>Recherche Alternance - Cybersécurité</h2>
         <p>
-            <strong>Disponibilités : </strong>Début Septembre 2026 (Rythme : 2 Semaines en entreprise, 1 semaine en cours)
+        <strong>Disponibilités : </strong>Début Septembre 2026 (Rythme : 2 Semaines en entreprise, 1 semaine en cours)
         </p>
         <p><br></p>
         <p>née le 24/11/2006</p>
         <p>Email: <a href="mailto:matheo.douillez3@gmail.com">matheo.douillez3@gmail.com</a></p>
         <p>Téléphone: <a href="tel:+33650220913">06 50 22 09 13</a></p>
-        <p>Disponible dans le Secteur Haut de France</p>
-      </header>
-          
-        <nav class="nav">
-            <ul>
-                <li><a href="#experiences">Expériences Professionnelles et Bénévolat</a></li>
-                <li><a href="#competences">Compétences</a></li>
-                <li><a href="#etudes">Études</a></li>
-                <li><a href="#certifications">Diplômes et Certifications</a></li>
-            </ul>
-        </nav>
-      
-          <section id="experiences">
-          <h3>Expériences Professionnelles et Bénévolat</h3>
-          <ul id="experience-list"> 
-          </ul>
-
-              <script>
-                  document.addEventListener('DOMContentLoaded', () => {
-    const listContainer = document.getElementById('experience-list');
+        <p>Disponible dans le Secteur Haut de France</p>        
+    </div>
     
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY/pub?output=csv'; 
-
-    function displayError(message) {
-        listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
-            ⚠️ ERREUR : ${message}
-            <br><small style="color: #666;">Vérifiez que le lien Google Sheets est bien en mode PUBLICATION (.csv) et que le format des colonnes (id, poste, etc.) est exact.</small>
-        </li>`;
-    }
-
-    fetch(csvUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
-            }
-            return response.text();
-        })
-        .then(csvText => {
-            const data = csvToJSON(csvText);
-
-            if (data.length === 0) {
-                return displayError("Aucune donnée d'expérience valide n'a été trouvée dans le fichier CSV.");
-            }
-            
-            data.sort((a, b) => {
-                return parseInt(b.id || 0) - parseInt(a.id || 0); 
-            });
-
-            data.forEach(item => {
-                const listItem = document.createElement('li');
-                
-                let cleanDescription = item.description || '';
-                
-                cleanDescription = cleanDescription.replace(/<br\s*\/?>/gi, '</p><p>');
-
-                if (!cleanDescription.startsWith('<p>')) {
-                    cleanDescription = '<p>' + cleanDescription;
-                }
-                if (!cleanDescription.endsWith('</p>')) {
-                    cleanDescription = cleanDescription + '</p>';
-                }
-                
-                listItem.innerHTML = `
-                    <div class="item-title">${item.poste || 'Titre manquant'}<span class="item-date">${item.date || ''}</span></div>
-                    <div class="item-subtitle">${item.entreprise || ''}</div>
-                    <div class="item-description-container">
-                        ${cleanDescription}
-                    </div>
-                `;
-                
-                listContainer.appendChild(listItem);
-            });
-        })
-        .catch(error => {
-            displayError(error.message || "Problème général de traitement ou de réseau.");
-        });
-
-
-    function csvToJSON(csv) {
-        const lines = csv.split('\n');
-        if (lines.length < 2) return []; 
-        
-        const headers = lines[0].split(',');
-        const result = [];
-        
-        for (let i = 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue;
-            
-            const currentline = lines[i].split(',');
-            const obj = {};
-            
-            if (currentline.length < headers.length) continue; 
-            
-            for (let j = 0; j < headers.length; j++) {
-                let key = headers[j].trim().replace(/['"]+/g, '');
-                let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
-                obj[key] = value;
-            }
-            
-            const idNumber = parseInt(obj.id);
-            if (!isNaN(idNumber) && idNumber > 0) {
-                result.push(obj);
-            }
-        }
-        return result;
-    }
-});
-                  
-              </script>
-              
-              
-      </section>
-    
-      <section id="competences">
-          <h3>Compétences</h3>
-          <ul id="skills-list">
-          </ul>
-
-        <script>
-          document.addEventListener('DOMContentLoaded', () => {
-    const listContainer = document.getElementById('skills-list');
-    
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtJPv7rSa7Tb7tEamE9OPO4O0XH8ef8qtrfGlOgdJy1G5vJrOGCVfupGN_p9eTayHo_HR-CNZY0AO6/pub?output=csv'; 
-
-    // Fonction pour afficher les messages d'erreur directement sur la page
-    function displayError(message) {
-        // Changement : Affiche dans la liste mais s'assure que l'élément parent existe
-        if (listContainer) {
-            listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
-                ⚠️ ERREUR : ${message}
-                <br><small style="color: #666;">Vérifiez l'URL de publication, le format CSV et les noms des en-têtes (ID, Competence, Niveau).</small>
-            </li>`;
-        }
-    }
-
-    fetch(csvUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
-            }
-            return response.text();
-        })
-        .then(csvText => {
-            const data = csvToJSON(csvText);
-
-            if (data.length === 0) {
-                return displayError("Aucune donnée de compétence valide n'a été trouvée dans le fichier CSV.");
-            }
-            
-            // Tri par ID décroissant (si vous conservez une colonne ID)
-            data.sort((a, b) => {
-                // S'assure de trier numériquement même si l'ID est une chaîne
-                return parseInt(b.id || 0) - parseInt(a.id || 0); 
-            });
-
-            // Affichage des données triées
-            data.forEach(item => {
-                const listItem = document.createElement('li');
-                
-                // 2. Changement : Utilisation des nouvelles clés de données (competence, niveau)
-                // Assurez-vous que vos en-têtes de colonnes dans la feuille sont "id", "competence", "niveau"
-                listItem.innerHTML = `
-                    <div class="skill-item">
-                        <span class="item-title">${item.niveau}</span>
-                    </div>
-                `;
-                
-                listContainer.appendChild(listItem);
-            });
-        })
-        .catch(error => {
-            displayError(error.message || "Problème général de traitement ou de réseau.");
-        });
-
-
-    // FONCTION DE CONVERSION CSV VERS JSON (Aucun changement majeur nécessaire ici)
-    function csvToJSON(csv) {
-        const lines = csv.split('\n');
-        if (lines.length < 2) return []; 
-        
-        const headers = lines[0].split(',');
-        const result = [];
-        
-        for (let i = 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue;
-            
-            const currentline = lines[i].split(',');
-            const obj = {};
-            
-            if (currentline.length < headers.length) continue; 
-            
-            for (let j = 0; j < headers.length; j++) {
-                let key = headers[j].trim().toLowerCase().replace(/['"]+/g, ''); // Utilisation de .toLowerCase() pour plus de robustesse
-                let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
-                obj[key] = value;
-            }
-            
-            // Ligne de vérification de l'ID : seulement si l'ID est un nombre > 0 (si vous gardez la colonne ID)
-            const idNumber = parseInt(obj.id);
-            if (isNaN(idNumber) || idNumber > 0) { // Si l'ID est ignoré (isNaN), ou si ID > 0
-                result.push(obj);
-            }
-        }
-        return result;
-    }
-});
-                    
-          </script>
-      </section>
-
-      <section id="etudes">
-    <h3>Études</h3>
-    <ul id="etudes-list">
-        </ul>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Cible l'élément <ul> par son ID
-            const listContainer = document.getElementById('etudes-list');
-            
-            // !!! REMPLACEZ CECI PAR L'URL DE PUBLICATION CSV DE VOTRE FEUILLE D'ÉTUDES !!!
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7/pub?output=csv'; 
-
-            if (!listContainer) return; 
-
-            // Fonction pour afficher les messages d'erreur
-            function displayError(message) {
-                listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
-                    ⚠️ ERREUR : ${message}
-                    <br><small style="color: #666;">Vérifiez l'URL et les en-têtes (id, diplome, date, etablissement).</small>
-                </li>`;
-            }
-
-            fetch(csvUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
-                    }
-                    return response.text();
-                })
-                .then(csvText => {
-                    const data = csvToJSON(csvText);
-
-                    if (data.length === 0) {
-                        return displayError("Aucune donnée d'études valide n'a été trouvée.");
-                    }
-                    
-                    // Tri par ID décroissant (le plus récent en premier)
-                    data.sort((a, b) => {
-                        return parseInt(b.id || 0) - parseInt(a.id || 0); 
-                    });
-
-                    // Affichage des données
-                    data.forEach(item => {
-                        const listItem = document.createElement('li');
-                        
-                        // Utilisation des clés : diplome, date, etablissement
-                        listItem.innerHTML = `
-                            <div class="item-title">
-                                ${item.diplome || 'Diplôme manquant'}
-                                <span class="item-date">${item.date || ''}</span>
-                            </div>
-                            <div class="item-subtitle">${item.etablissement || ''}</div>
-                        `;
-                        
-                        listContainer.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    displayError(error.message || "Problème général de traitement ou de réseau.");
-                });
-
-
-            // FONCTION DE CONVERSION CSV VERS JSON (Identique aux autres)
-            function csvToJSON(csv) {
-                const lines = csv.split('\n');
-                if (lines.length < 2) return []; 
-                
-                const headers = lines[0].split(',');
-                const result = [];
-                
-                for (let i = 1; i < lines.length; i++) {
-                    if (!lines[i].trim()) continue;
-                    
-                    const currentline = lines[i].split(',');
-                    const obj = {};
-                    
-                    if (currentline.length < headers.length) continue; 
-                    
-                    for (let j = 0; j < headers.length; j++) {
-                        let key = headers[j].trim().toLowerCase().replace(/['"]+/g, '');
-                        let value = currentline[j] ? currentline[j].trim().replace(/['"]+/g, '') : '';
-                        obj[key] = value;
-                    }
-                    
-                    const idNumber = parseInt(obj.id);
-                    if (isNaN(idNumber) || idNumber > 0) {
-                        result.push(obj);
-                    }
-                }
-                return result;
-            }
-        });
-    </script>
-      </section>
-      
-<section id="certifications">
-    <h3>Diplômes et Certifications</h3>
-    <ul id="certifications-list">
-        </ul>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const listContainer = document.getElementById('certifications-list');
-            
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPVMO7hsB44WhjM9BwPZlw7FH_fkb2f-tKsI-n6Qk44ekNIxsxgU6xBNCxXhM-psXC_GkHM6exQX9W/pub?output=csv'; 
-
-            if (!listContainer) return; 
-
-            // Fonction pour afficher les messages d'erreur
-            function displayError(message) {
-                listContainer.innerHTML = `<li style="color: red; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
-                    ⚠️ ERREUR : ${message}
-                    <br><small style="color: #666;">Vérifiez l'URL et les en-têtes (id, diplome, date).</small>
-                </li>`;
-            }
-
-            fetch(csvUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Échec du chargement (Statut: ${response.status}). Vérifiez l'URL de publication.`);
-                    }
-                    return response.text();
-                })
-                .then(csvText => {
-                    // Utilise la fonction csvToJSON définie dans un autre script (assurez-vous qu'elle est disponible globalement)
-                    const data = csvToJSON(csvText); 
-
-                    if (data.length === 0) {
-                        return displayError("Aucun diplôme ou certification valide n'a été trouvé.");
-                    }
-                    
-                    // Tri par ID décroissant
-                    data.sort((a, b) => {
-                        return parseInt(b.id || 0) - parseInt(a.id || 0); 
-                    });
-
-                    // Affichage des données
-                    data.forEach(item => {
-                        const listItem = document.createElement('li');
-                        
-                        // Utilisation des clés : diplome, date
-                        listItem.innerHTML = `
-                            <div class="item-title">
-                                ${item.diplome || 'Diplôme manquant'}
-                                <span class="item-date">${item.date || ''}</span>
-                            </div>
-                        `;
-                        
-                        listContainer.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    displayError(error.message || "Problème général de traitement ou de réseau.");
-                });
-        });
-    </script>
-</section>
-      
-      <footer class="footer">
-          <p>&copy; 2025 Mathéo Douillez.</p>
-      </footer>
-
-  </div>
+    <divclass="mobile-actions">
+        <a href="phase-cache" class="button-cache">Voir la phase Caché de l'iceberg</a>
+    </div>
+</div>
+    <footer class="footer">
+        <p>&copy; 2025 Mathéo Douillez.</p> 
+    </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   </body>
