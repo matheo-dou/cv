@@ -1,0 +1,54 @@
+name: Update CV Datas
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  build-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download and Convert
+        run: |
+          mkdir -p datas
+          node -e "
+          const fs = require('fs');
+          const https = require('https');
+
+          const sources = [
+            { name: 'experiences', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlSc6vx6ZK0DHSEPw8bRr3a8KDHRwOQhFLB7njw5VxP2EgopqJY39YGhoFqfh83kwZNZ4Ml4wuYDIY/pub?output=csv' },
+            { name: 'competences', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtJPv7rSa7Tb7tEamE9OPO4O0XH8ef8qtrfGlOgdJy1G5vJrOGCVfupGN_p9eTayHo_HR-CNZY0AO6/pub?output=csv' },
+            { name: 'certifications', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPVMO7hsB44WhjM9BwPZlw7FH_fkb2f-tKsI-n6Qk44ekNIxsxgU6xBNCxXhM-psXC_GkHM6exQX9W/pub?output=csv' },
+            { name: 'etudes', url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7/pub?output=csv' }
+          ];
+
+          sources.forEach(source => {
+            https.get(source.url, (res) => {
+              let data = '';
+              res.on('data', chunk => data += chunk);
+              res.on('end', () => {
+                const lines = data.split('\n').filter(l => l.trim() !== '');
+                const headers = lines[0].split(',');
+                const json = lines.slice(1).map(line => {
+                  const v = line.split(',');
+                  if (source.name === 'experiences') return { id: v[0], poste: v[1], entreprise: v[2], date: v[3], description: v.slice(4).join(',') };
+                  if (source.name === 'competences') return { id: v[0], competence: v[1], niveau: v[2] };
+                  if (source.name === 'certifications') return { id: v[0], diplome: v[1], date: v[2] };
+                  if (source.name === 'etudes') return { id: v[0], diplome: v[1], etablissement: v[2], date: v[3], description: v.slice(4).join(',') };
+                }).filter(item => item.id && parseInt(item.id) !== 0);
+                fs.writeFileSync('datas/' + source.name + '.json', JSON.stringify(json, null, 2));
+              });
+            });
+          });
+          "
+      
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add datas/*.json
+          git commit -m 'Sync datas from Google Sheets' || exit 0
+          git push
+          
