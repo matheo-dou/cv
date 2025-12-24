@@ -1,1 +1,38 @@
-
+[
+  {
+    "id": "<HEAD>",
+    "description": ""
+  },
+  {
+    "id": "<TITLE>Temporary Redirect</TITLE>",
+    "description": ""
+  },
+  {
+    "id": "</HEAD>",
+    "description": ""
+  },
+  {
+    "id": "<BODY BGCOLOR=\"#FFFFFF\" TEXT=\"#000000\">",
+    "description": ""
+  },
+  {
+    "id": "<!-- GSE Default Error -->",
+    "description": ""
+  },
+  {
+    "id": "<H1>Temporary Redirect</H1>",
+    "description": ""
+  },
+  {
+    "id": "The document has moved <A HREF=\"https://doc-0o-bc-sheets.googleusercontent.com/pub/54bogvaave6cua4cdnls17ksc4/r6rqbbb8840tg16vidcljpfnl8/1766585795000/113955035271933666253/*/e@2PACX-1vRow65WkcQYqSf2FTicz3Uzd9tLfvcxn6QgtRlhDCxTacpNo8Gi6Y6ZCmjggVXlF9OQOaDFgHsyWRq7?output=csv\">here</A>.",
+    "description": ""
+  },
+  {
+    "id": "</BODY>",
+    "description": ""
+  },
+  {
+    "id": "</HTML>",
+    "description": ""
+  }
+]
