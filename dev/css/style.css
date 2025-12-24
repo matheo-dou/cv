@@ -191,7 +191,9 @@ a:hover {
 /* --- Règles Spécifiques au Design Iceberg (Desktop) --- */
 
 .cv-page-desktop {
-    display: block; 
+    display: block;
+    width: 100%;
+    haight: auto;
 }
 
 .cv-container-desktop {
