@@ -2,7 +2,6 @@
   --primary-bg-color: #ebe7eb;
   --text-color: #343a40;
   --accent-color: #1254db;
-  --text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
 }
 
 * { box-sizing: border-box; }
@@ -34,42 +33,44 @@ body {
   height: auto;
 }
 
-/* --- BLOC INFOS PERSO (Horizontal) --- */
+/* --- INFOS PERSO HORIZONTALES (Sommet) --- */
 .desktop-informations-personnel {
   position: absolute;
-  top: 5%; /* Position dans le ciel */
+  top: 3%;
   left: 0;
-  width: 100%; /* Prend toute la largeur pour bien répartir les infos */
+  width: 100%;
   display: flex;
-  flex-direction: row; /* Alignement horizontal */
-  justify-content: space-around; /* Espace égal entre les éléments */
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   padding: 0 5%;
   z-index: 20;
 }
 
-/* On ajuste les titres et paragraphes à l'intérieur pour le mode ligne */
-.desktop-informations-personnel h1 { font-size: 2vw; margin: 0; white-space: nowrap; }
-.desktop-informations-personnel h2 { font-size: 1.1vw; margin: 0; }
-.desktop-informations-personnel p { font-size: 0.85vw; margin: 0; }
+.desktop-informations-personnel h1 { font-size: 2vw; margin: 0; }
+.desktop-informations-personnel p { font-size: 0.9vw; margin: 0; }
 
-/* --- AUTRES BLOCS (Sur l'Iceberg) --- */
+/* --- BLOCS DÉROULANTS (Iceberg) --- */
 .cv-page-desktop div[class^="desktop-"]:not(.desktop-informations-personnel) {
   position: absolute;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
   padding: 1vw;
   border-radius: 8px;
   font-size: 0.85vw; 
-  width: 22%;
+  width: 23%;
+  
+  /* Limite de hauteur et scroll */
+  max-height: 20vw; /* Hauteur proportionnelle à la largeur de l'image */
+  overflow-y: auto;
 }
 
-/* --- POSITIONS PRÉCISES SUR L'ICEBERG --- */
+/* Positions sur l'iceberg */
 .desktop-experiences { top: 35%; left: 5%; }
 .desktop-competences { top: 35%; right: 5%; }
-.desktop-etudes { top: 65%; left: 10%; }
-.desktop-certifications { top: 75%; right: 10%; }
+.desktop-etudes { top: 65%; left: 8%; }
+.desktop-certifications { top: 75%; right: 8%; }
 
 /* --- VERSION MOBILE --- */
 .cv-page-mobile { display: none; width: 100%; }
@@ -77,13 +78,7 @@ body {
 @media (max-width: 1024px) {
   .cv-page-desktop { display: none !important; }
   .cv-page-mobile { display: flex !important; flex-direction: column; align-items: center; }
-  
-  .mobile-informations-personnel {
-      padding: 20px;
-      text-align: center;
-      background: white;
-      width: 100%;
-  }
+  .mobile-informations-personnel { padding: 20px; text-align: center; background: white; width: 100%; }
 }
 
-.footer { width: 100%; text-align: center; padding: 20px; background: white; margin-top: auto; }
+.footer { width: 100%; text-align: center; padding: 15px; background: white; margin-top: auto; }
