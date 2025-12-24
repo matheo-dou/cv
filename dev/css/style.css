@@ -2,123 +2,143 @@
   --primary-bg-color: #ebe7eb;
   --text-color: #343a40;
   --accent-color: #1254db;
-  --heading-color: #1b5e20;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  min-height: 100vh;
   background-color: var(--primary-bg-color);
   font-family: 'Arial', sans-serif;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
 }
 
-/* --- LOGIQUE DE POSITIONNEMENT (Commune) --- */
-
-.cv-page-desktop, .cv-page-mobile {
-  position: relative; /* Repère pour les textes en absolute */
+/* --- Conteneur Desktop (Le secret du collage) --- */
+.cv-page-desktop {
+  position: relative;
+  display: inline-block; 
   width: 100%;
-  display: block;
+  max-width: 1920px; /* Taille réelle de ton image */
+  margin: 0 auto;
 }
 
-.background-iceberg {
+.background-desktop {
+  display: block;
   width: 100%;
   height: auto;
-  display: block; /* Supprime l'espace blanc sous l'image */
+  z-index: 1;
 }
 
-/* Style des blocs de texte sur l'image */
-.cv-page-desktop div[class^="desktop-"] {
+/* --- Style des Blocs de Texte --- */
+/* On utilise position: absolute pour qu'ils soient liés au parent .cv-page-desktop */
+.desktop-informations-personnel, 
+.desktop-experiences, 
+.desktop-competences, 
+.desktop-etudes, 
+.desktop-certifications {
   position: absolute;
   z-index: 10;
-  width: 22%; /* Largeur fixe relative à l'image */
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
   padding: 1vw;
   border-radius: 8px;
-  text-align: left;
-  /* La taille du texte s'adapte à la largeur de l'écran (zoom-friendly) */
+  /* UNITE VW : le texte rétrécit si l'image rétrécit au dézoom */
   font-size: 0.85vw; 
+  color: var(--text-color);
+  pointer-events: auto;
 }
 
-/* --- COORDONNÉES DESKTOP (À ajuster selon votre image) --- */
+/* --- Positionnement en % (À ajuster précisément selon ton image) --- */
 
 .desktop-informations-personnel {
-  top: 5%;
-  left: 5%;
-  width: 25% !important;
+  top: 32%;      /* Position verticale sur l'iceberg */
+  left: 50%;     /* Position horizontale */
+  transform: translateX(-50%); /* Pour centrer le bloc exactement sur le point 50% */
+  width: 30%;
+  text-align: center;
 }
 
-.desktop-informations-personnel h1 { font-size: 2.2vw; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-
 .desktop-experiences {
-  top: 40%;
+  top: 10%;
   left: 5%;
+  width: 25%;
 }
 
 .desktop-competences {
-  top: 40%;
+  top: 10%;
   right: 5%;
+  width: 25%;
 }
 
 .desktop-etudes {
-  top: 70%;
-  left: 20%;
+  top: 55%;
+  left: 10%;
+  width: 22%;
 }
 
 .desktop-certifications {
   top: 75%;
-  right: 15%;
+  right: 10%;
+  width: 22%;
 }
 
-/* --- STYLES DES LISTES --- */
-ul { list-style: none; padding: 0; }
-li { margin-bottom: 0.5vw; }
-h3 { 
-  font-size: 1.2vw; 
-  border-bottom: 2px solid var(--accent-color);
-  color: white;
-}
+/* --- Typographie Proportionnelle --- */
+h1 { font-size: 2.5vw; margin: 0; color: #1b5e20; }
+h2 { font-size: 1.2vw; color: var(--accent-color); }
+h3 { font-size: 1.1vw; border-bottom: 2px solid var(--accent-color); margin-bottom: 0.5vw; }
+ul { list-style: none; padding: 0; margin: 0; }
+li { margin-bottom: 0.4vw; line-height: 1.2; }
 
-/* --- RESPONSIVE : GESTION DES DEUX VERSIONS --- */
-
-/* Cas PC : On cache la version mobile */
-@media (min-width: 1025px) {
-  .cv-page-mobile { display: none; }
-}
-
-/* Cas Mobile : On cache la version PC */
-@media (max-width: 1024px) {
-  .cv-page-desktop { display: none; }
+/* --- Version Mobile --- */
+@media (max-width: 1110px) {
+  .cv-page-desktop {
+    display: none;
+  }
   
   .cv-page-mobile {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .background-mobile {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
   }
 
-  .mobile-informations-personnel {
-    position: absolute;
-    top: 10%;
-    color: white;
-    text-align: center;
+  .mobile-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .button-cache {
-    display: inline-block;
-    background: var(--accent-color);
+    background-color: var(--accent-color);
     color: white;
-    padding: 15px 25px;
+    padding: 15px 30px;
     text-decoration: none;
-    border-radius: 50px;
-    margin-top: 20px;
+    border-radius: 5px;
     font-weight: bold;
   }
 }
 
+/* --- Footer --- */
 .footer {
-  padding: 20px;
+  width: 100%;
   text-align: center;
-  background: #fff;
+  padding: 20px;
   font-size: 0.8em;
+  background: white;
+  margin-top: auto;
 }
