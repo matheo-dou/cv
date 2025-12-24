@@ -53,6 +53,7 @@ body {
 }
 
 .background-mobile {
+  display: none !important;
   width: 100%;
   height: auto;
 }
