@@ -118,10 +118,10 @@ div[class^="desktop-"]::-webkit-scrollbar-thumb {
 }
 
 /* --- POSITIONS PRÉCISES (Ajuste selon ton image) --- */
-.desktop-experiences { top: 38%; left: 4%; }
-.desktop-competences { top: 38%; right: 4%; }
-.desktop-etudes      { top: 68%; left: 8%; }
-.desktop-certifications { top: 78%; right: 8%; }
+.desktop-experiences { top: 40%; left: 10%; }
+.desktop-competences { top: 41%; right: 9%; }
+.desktop-etudes      { top: 22%; left: 40%; }
+.desktop-certifications { top: 78%; right: 9%; }
 
 /* Style des titres dans l'iceberg */
 .cv-page-desktop h3 {
@@ -139,7 +139,7 @@ div[class^="desktop-"]::-webkit-scrollbar-thumb {
   width: 100%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1370px) {
   .cv-page-desktop { display: none !important; }
   .cv-page-mobile {
     display: flex !important;
