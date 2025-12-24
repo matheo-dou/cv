@@ -2,6 +2,7 @@
   --primary-bg-color: #ebe7eb;
   --text-color: #343a40;
   --accent-color: #1254db;
+  --text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
 }
 
 * { box-sizing: border-box; }
@@ -33,69 +34,56 @@ body {
   height: auto;
 }
 
-.cv-page-desktop div[class^="desktop-"] {
+/* --- BLOC INFOS PERSO (Horizontal) --- */
+.desktop-informations-personnel {
+  position: absolute;
+  top: 5%; /* Position dans le ciel */
+  left: 0;
+  width: 100%; /* Prend toute la largeur pour bien répartir les infos */
+  display: flex;
+  flex-direction: row; /* Alignement horizontal */
+  justify-content: space-around; /* Espace égal entre les éléments */
+  align-items: center;
+  padding: 0 5%;
+  z-index: 20;
+}
+
+/* On ajuste les titres et paragraphes à l'intérieur pour le mode ligne */
+.desktop-informations-personnel h1 { font-size: 2vw; margin: 0; white-space: nowrap; }
+.desktop-informations-personnel h2 { font-size: 1.1vw; margin: 0; }
+.desktop-informations-personnel p { font-size: 0.85vw; margin: 0; }
+
+/* --- AUTRES BLOCS (Sur l'Iceberg) --- */
+.cv-page-desktop div[class^="desktop-"]:not(.desktop-informations-personnel) {
   position: absolute;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(5px);
   padding: 1vw;
   border-radius: 8px;
   font-size: 0.85vw; 
-  color: var(--text-color);
+  width: 22%;
 }
 
-/* --- VERSION MOBILE (Cachée par défaut) --- */
-.cv-page-mobile {
-  display: none !important;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-}
+/* --- POSITIONS PRÉCISES SUR L'ICEBERG --- */
+.desktop-experiences { top: 35%; left: 5%; }
+.desktop-competences { top: 35%; right: 5%; }
+.desktop-etudes { top: 65%; left: 10%; }
+.desktop-certifications { top: 75%; right: 10%; }
 
-.background-mobile {
-  display: none !important;
-  width: 100%;
-  height: auto;
-}
+/* --- VERSION MOBILE --- */
+.cv-page-mobile { display: none; width: 100%; }
 
-/* --- LOGIQUE DE BASCULE (Media Queries) --- */
-
-/* Si l'écran est petit (Mobile) */
 @media (max-width: 1024px) {
-  .cv-page-desktop {
-    display: none !important;
-  }
+  .cv-page-desktop { display: none !important; }
+  .cv-page-mobile { display: flex !important; flex-direction: column; align-items: center; }
   
-  .cv-page-mobile {
-    display: flex !important;
-  }
-
-  .button-cache {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 20px 0;
-    font-weight: bold;
+  .mobile-informations-personnel {
+      padding: 20px;
+      text-align: center;
+      background: white;
+      width: 100%;
   }
 }
 
-/* --- Styles de texte Desktop --- */
-.desktop-informations-personnel { top: 32%; left: 50%; transform: translateX(-50%); width: 30%; text-align: center; }
-.desktop-experiences { top: 10%; left: 5%; width: 25%; }
-.desktop-competences { top: 10%; right: 5%; width: 25%; }
-.desktop-etudes { top: 55%; left: 10%; width: 22%; }
-.desktop-certifications { top: 75%; right: 10%; width: 22%; }
-
-h1 { font-size: 2.5vw; margin: 0; }
-h3 { font-size: 1.1vw; border-bottom: 2px solid var(--accent-color); }
-ul { list-style: none; padding: 0; }
-
-.footer {
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  background: white;
-  margin-top: auto;
-}
+.footer { width: 100%; text-align: center; padding: 20px; background: white; margin-top: auto; }
