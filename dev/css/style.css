@@ -119,10 +119,10 @@ div[class^="desktop-"]::-webkit-scrollbar-thumb {
 }
 
 /* --- POSITIONS PRÉCISES (Ajuste selon ton image) --- */
-.desktop-experiences { top: 40% !important; left: 10%; }
-.desktop-competences { top: 41% !important; right: 9%; }
-.desktop-etudes { top: 22% !important; left: 40%; }
-.desktop-certifications { top: 67% !important; left: 40%; }
+.desktop-experiences { top: 40% !important; left: 10% !important; }
+.desktop-competences { top: 41% !important; right: 9% !important; }
+.desktop-etudes { top: 22% !important; left: 40% !important; }
+.desktop-certifications { top: 67% !important; left: 40% !important; }
 
 /* Style des titres dans l'iceberg */
 .cv-page-desktop h3 {
