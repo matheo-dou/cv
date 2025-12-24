@@ -122,7 +122,7 @@ div[class^="desktop-"]::-webkit-scrollbar-thumb {
 .desktop-experiences { top: 40% !important; left: 10%; }
 .desktop-competences { top: 41% !important; right: 9%; }
 .desktop-etudes { top: 22% !important; left: 40%; }
-.desktop-certifications { top: 78% !important; right: 9%; }
+.desktop-certifications { top: 67% !important; left: 40%; }
 
 /* Style des titres dans l'iceberg */
 .cv-page-desktop h3 {
@@ -140,7 +140,7 @@ div[class^="desktop-"]::-webkit-scrollbar-thumb {
   width: 100%;
 }
 
-@media (max-width: 1370px) {
+@media (max-width: 1150px) {
   .cv-page-desktop { display: none !important; }
   .cv-page-mobile {
     display: flex !important;
